@@ -1,19 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');@tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
 }
 
-.banner-img{
-  background: url("./assets/banner.png") no-repeat center center; 
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+.banner-img {
+  content: url("./assets/banner.png");
+}
+
+@media (min-width: 768px) {
+  .banner-img {
+    content: url("./assets/banner2.png");
+  }
 }

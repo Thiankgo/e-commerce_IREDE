@@ -30,8 +30,8 @@ export default function Header() {
                     <MdOutlineShoppingCart className="fill-white scale-150" ></MdOutlineShoppingCart>
                 </button>
             </div>
-            <div className="flex justify-center align-middle static">
-                <IoMdSearch className="fill-[#666666] absolute left-[40px] top-[85px] w-4"  ></IoMdSearch>
+            <div className="flex align-middle w-[100%] max-w-[600px] relative mx-auto">
+                <IoMdSearch className="fill-[#666666] absolute w-4 left-2 bottom-2"  ></IoMdSearch>
                 <input onKeyDown={handleSearch} placeholder="Buscar" type="text" className="h-[32px] w-[100%] pl-[28px] text-[#666666] text-[12px] font-[400] rounded" />
             </div>
         </header>
