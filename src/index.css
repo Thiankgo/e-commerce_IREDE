@@ -20,3 +20,20 @@
     content: url("./assets/banner2.png");
   }
 }
+
+.header-mobile {
+  display: flex;
+}
+
+.header-browser {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-mobile {
+    display: none;
+  }
+  .header-browser {
+    display: flex;
+  }
+}

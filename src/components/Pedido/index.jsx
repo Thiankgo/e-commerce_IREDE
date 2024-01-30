@@ -11,8 +11,8 @@ export default function Pedido({ pedido }) {
                 </div>
             </div>
             <div className="flex w-[100%] justify-between pb-3 border-stone-500 border-b">
-                <p>Status:</p>
-                <p>{pedido?.status}</p>
+                <p className=" font-[600] text-[16px] text-stone-500">Status:</p>
+                <p className={` font-[600] text-[16px] ${pedido?.status === "Finalizado" ? "text-green-700" : "text-red-600"}`}>{pedido?.status}</p>
             </div>
         </>
     )
