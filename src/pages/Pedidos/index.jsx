@@ -1,6 +1,7 @@
 import Pedido from "../../components/Pedido"
 import ProductImage from "../../assets/productimage.png"
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown } from "react-icons/io"
+
 export default function Pedidos() {
     let pedidos1 = [
         { key: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis", status: "Finalizado" },

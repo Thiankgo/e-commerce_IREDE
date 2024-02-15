@@ -1,6 +1,7 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdSearch } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { Link } from 'react-router-dom'
 
 import Logo from "../../assets/logo.png"
 
@@ -55,11 +56,13 @@ export default function Header() {
                             <IoMdSearch className="fill-[#666666] absolute w-6 left-1 bottom-[14px]"  ></IoMdSearch>
                             <input onKeyDown={handleSearch} placeholder="Buscar" type="text" className="h-[44px] w-[100%] pl-[28px] text-[#666666] text-[16px] font-[400] rounded" />
                         </div>
-                        <button onClick={handleShoppingCart} className=" text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4" >Cadastre-se</button>
-                        <button onClick={handleShoppingCart} className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500">Entrar</button>
-                        <button onClick={handleShoppingCart} className="w-6 h-6 pl-1 relative">
-                            <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2" ></MdOutlineShoppingCart>
-                        </button>
+                        <Link to="/cadastrar"> <button className=" text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4" >Cadastre-se</button> </Link>
+                        <Link to="/login" > <button className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500">Entrar</button> </Link>
+                        <Link to="/meu-carrinho">
+                            <button className="w-6 h-6 pl-1 relative">
+                                <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2" ></MdOutlineShoppingCart>
+                            </button>
+                        </Link>
                     </div>
                     <div className=" mt-8 flex justify-center gap-8 text-[16px] font-[600] text-zinc-50">
                         <a href="/" >Home</a>
