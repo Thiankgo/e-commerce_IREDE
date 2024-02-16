@@ -1,10 +1,8 @@
 import Logo from "../../assets/logo.png"
 import { Link } from 'react-router-dom'
 
-export default function Register() {
-
-
-    function handleRegister(e) {
+export default function Login() {
+    function handleLogin(e) {
         e.preventDefault()
     }
 
@@ -19,11 +17,7 @@ export default function Register() {
 
                 <div className="flex flex-col w-[95%] max-w-[450px] mx-auto p-4 justify-center bg-white">
                     <h1 className=" text-[24px] font-[600] text-black text-center my-2">Cadastre-se</h1>
-                    <form onSubmit={handleRegister} className=" flex flex-col">
-                        <label htmlFor="name" className=" text-[16px] font-[600] text-black ml-2 mb-2">
-                            Nome:*
-                        </label>
-                        <input onChange={handleUser} type="text" name="name" id="name" placeholder="Digite seu nome" className="w-full px-4 py-2 rounded-md bg-slate-100 text-stone-500 mb-4" />
+                    <form onSubmit={handleLogin} className=" flex flex-col">
                         <label htmlFor="email" className=" text-[16px] font-[600] text-black ml-2 mb-2">
                             E-mail:*
                         </label>
@@ -32,10 +26,10 @@ export default function Register() {
                             Senha:*
                         </label>
                         <input onChange={handleUser} type="password" name="password" id="password" placeholder="Digite sua senha" className="w-full px-4 py-2 rounded-md bg-slate-100 text-stone-500 mb-4" />
-                        <button type="submit" className="w-[260px] h-[60px] bg-orange-500 text-[16px] text-white font-[600] mx-auto rounded-md">Cadastrar</button>
+                        <button type="submit" className="w-[260px] h-[60px] bg-orange-500 text-[16px] text-white font-[600] mx-auto rounded-md">Fazer Login</button>
                     </form>
                     <div className="font-[400] text-[16px] gap-2 mx-auto text-black flex flex-row">
-                        Já possui cadastro? <Link to="/login" className="text-orange-500"> Clique aqui!</Link>
+                        Não se cadastrou? <Link to="/cadastrar" className="text-orange-500"> Clique aqui!</Link>
                     </div>
                 </div>
             </div>
