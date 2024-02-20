@@ -6,8 +6,9 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import Dialog from './components/Menu'
+import Menu from './components/Menu'
 import { useState } from 'react'
+import Cart from './components/Cart'
 function App() {
   const [showModal, setShowModal] = useState(true)
 
@@ -22,7 +23,8 @@ function App() {
           <Route path="/cadastrar" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-        <Dialog showModal={showModal} setShowModal={setShowModal}/>
+        <Cart showModal={showModal} setShowModal={setShowModal}/>
+        {/* <Menu showModal={showModal} setShowModal={setShowModal}/> */}
 
       </BrowserRouter>
     </>

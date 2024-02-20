@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 import { Link } from "react-router-dom";
-export default function Menu({ showModal, setShowModal }) {
+export default function Cart({ showModal, setShowModal }) {
     const pathname = window.location.pathname;
     console.log(pathname)
     const ref = useRef()
