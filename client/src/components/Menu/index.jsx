@@ -1,0 +1,51 @@
+import { useEffect, useRef } from "react"
+import { Link } from "react-router-dom";
+export default function Menu({ showModal, setShowModal }) {
+    const pathname = window.location.pathname;
+    console.log(pathname)
+    const ref = useRef()
+
+    function handleModal() {
+        setShowModal(!showModal)
+    }
+
+    useEffect(() => {
+        if (showModal) {
+            ref.current?.showModal()
+        } else {
+            ref.current.close()
+        }
+    }, [showModal])
+
+
+    return (
+        <dialog ref={ref} className="m-auto flex  backdrop:opacity-25 rounded-lg">
+            <div className=" min-w-[280px] px-6 py-4 flex flex-col" style={{ display: showModal ? "block" : "none" }}>
+                <div className="font-[600] text-[16px] text-stone-900 mb-4">Páginas</div>
+                <div className=" border-y-[1px] border-stone-900  font-[600] text-[12px] text-stone-500">
+                    <Link to="/">
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname == "/" ? " bg-slate-100 text-orange-500" : "")}
+                        >Home</button>
+                    </Link>
+                    <Link to="/produtos">
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname == "/produtos" ? " bg-slate-100 text-orange-500" : "")}
+                        >Produtos</button>
+                    </Link>
+                    <Link to="/categorias">
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname == "/categorias" ? " bg-slate-100 text-orange-500" : "")}
+                        >Categorias</button>
+                    </Link>
+                </div>
+                <div className=" mt-5 font-[600] text-[12px]">
+                    <Link to="/cadastrar">
+                        <button className="h-[30px] w-[50%] text-stone-500">Cadastre-se</button>
+                    </Link>
+                    <Link to="/login">
+                        <button className="h-[30px] w-[50%] text-white bg-blue-900 rounded font-[400]">Login</button>
+                    </Link>
+                </div>
+            </div>
+
+        </dialog>
+    )
+}
