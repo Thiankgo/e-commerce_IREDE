@@ -14,7 +14,7 @@ export function SearchBar() {
     )
 }
 
-export default function Header() {
+export default function Header({ showMenu, setShowMenu, showCart, setShowCart }) {
     const pathname = window.location.pathname;
 
     function handleSearch(e) {
@@ -25,10 +25,14 @@ export default function Header() {
 
     function handleMenu(e) {
         //console.log(e)
+        if (showMenu === false) setShowCart(false);
+        setShowMenu(!showMenu)
     }
 
     function handleShoppingCart(e) {
         //console.log(e)
+        if (showCart === false) setShowMenu(false);
+        setShowCart(!showCart)
     }
 
     return (
@@ -67,10 +71,14 @@ export default function Header() {
                         </Link>
                     </div>
                     <div className=" mt-8 flex justify-center gap-8 text-[16px] font-[600] text-zinc-50">
-                        <a href="/" >Home</a>
-                        <a href="/produtos">Produtos</a>
-                        <a href="/categorias">Categorias</a>
-                        <a href="/meus-pedidos">Meus Pedidos</a>
+                        <a className={(pathname == "/" ? " text-orange-500" : "")}
+                            href="/" >Home</a>
+                        <a className={(pathname == "/produtos" ? " text-orange-500" : "")}
+                            href="/produtos">Produtos</a>
+                        <a className={(pathname == "/categorias" ? " text-orange-500" : "")}
+                            href="/categorias">Categorias</a>
+                        <a className={(pathname == "/meus-pedidos" ? " text-orange-500" : "")}
+                            href="/meus-pedidos">Meus Pedidos</a>
                     </div>
                 </div>
             </div>

@@ -11,12 +11,13 @@ import { useState } from 'react'
 import Cart from './components/Cart'
 
 function App() {
-  const [showModal, setShowModal] = useState(true)
+  const [showCart, setShowCart] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
 
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <Header showCart={showCart} setShowCart={setShowCart} showMenu={showMenu} setShowMenu={setShowMenu}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/meus-pedidos" element={<Pedidos />} />
@@ -24,8 +25,8 @@ function App() {
           <Route path="/cadastrar" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-        <Cart showModal={showModal} setShowModal={setShowModal} />
-        {/* <Menu showModal={showModal} setShowModal={setShowModal}/> */}
+        <Cart showModal={showCart} setShowModal={setShowCart} />
+        <Menu showModal={showMenu} setShowModal={setShowMenu}/>
         <Footer />
       </BrowserRouter>
     </>

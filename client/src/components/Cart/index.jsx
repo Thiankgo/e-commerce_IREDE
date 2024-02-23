@@ -20,7 +20,7 @@ export default function Cart({ showModal, setShowModal }) {
 
     const ref = useRef()
 
-    function handleModal() {
+    function handleCart() {
         setShowModal(!showModal)
     }
 
@@ -33,6 +33,10 @@ export default function Cart({ showModal, setShowModal }) {
     }, [showModal])
 
     function handleEmpty(){
+
+    }
+
+    function handleFinish(){
 
     }
 
@@ -55,7 +59,7 @@ export default function Cart({ showModal, setShowModal }) {
                 </div>
                 <div className=" mt-1 font-[600] text-[12px]">
                     <button onClick={handleEmpty} className="h-[30px] w-[50%] text-stone-500">Esvaziar</button>
-                    <button className="h-[30px] w-[50%] text-white bg-blue-900 rounded font-[400]">Finalizar Comprar</button>
+                    <button onClick={handleFinish} className="h-[30px] w-[50%] text-white bg-blue-900 rounded font-[400]">Finalizar Comprar</button>
                 </div>
             </div>
 

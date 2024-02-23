@@ -1,5 +1,6 @@
 import Product from "../Product"
 import ProductImage from "../../assets/productimage.png"
+import { Link } from "react-router-dom"
 
 export default function Products({ products }) {
     let products1 = [
@@ -15,7 +16,9 @@ export default function Products({ products }) {
                     {
                         products1?.length > 0 ?
                             products1.map((p) => (
-                                <Product product={p} key={p.key}></Product>
+                                <Link to={`/products/${p.key}`}>
+                                    <Product product={p} key={p.key}></Product>
+                                </Link>
                             ))
                             : <p>Sem produtos</p>
                     }
