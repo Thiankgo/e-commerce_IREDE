@@ -2,6 +2,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdSearch } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { Link } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 
 import Logo from "../../assets/logo.png"
 
@@ -15,7 +16,7 @@ export function SearchBar() {
 }
 
 export default function Header({ showMenu, setShowMenu, showCart, setShowCart }) {
-    const pathname = window.location.pathname;
+    const { pathname } = useLocation();
 
     function handleSearch(e) {
         if (e.key === "Enter") {
@@ -35,8 +36,13 @@ export default function Header({ showMenu, setShowMenu, showCart, setShowCart })
         setShowCart(!showCart)
     }
 
+    if (pathname.match("/cadastrar")
+    ||  pathname.match("/login")) {
+        return null;
+    }
+
     return (
-        <header className={pathname == "/cadastrar" || pathname == "/login" ? "hidden" : ""}>
+        <header>
             <div className="header-mobile h-[140px] bg-blue-900 >">
                 <div className="w-[100%] h-[100%] m-auto flex p-8 flex-col justify-between align-middle ">
                     <div className="flex justify-between">

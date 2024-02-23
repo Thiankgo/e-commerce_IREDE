@@ -2,12 +2,18 @@ import Logo from "../../assets/logo.png"
 import { FaFacebook } from "react-icons/fa"
 import { FaInstagram } from "react-icons/fa"
 import { FaWhatsapp } from "react-icons/fa"
+import { useLocation } from "react-router-dom";
 
 export default function Footer() {
-    const pathname = window.location.pathname;
+    const { pathname } = useLocation();
+
+    if (pathname.match("/cadastrar")
+    ||  pathname.match("/login")) {
+        return null;
+    }
 
     return (
-        <footer className={pathname=="/cadastrar" || pathname == "/login"?"hidden":""}>
+        <footer>
             <div className="flex flex-wrap justify-center bg-blue-900 text-slate-100 text-[10px] p-4">
                 <section className="flex flex-wrap border-b pb-4 gap-8">
                     <div>

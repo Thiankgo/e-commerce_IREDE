@@ -16,7 +16,7 @@ export default function Login() {
                 <img src={Logo} alt="Logo E-Commece IREDE" className="w-[72px] h-[28px] my-8 block md:hidden" />
 
                 <div className="flex flex-col w-[95%] max-w-[450px] mx-auto p-4 justify-center bg-white">
-                    <h1 className=" text-[24px] font-[600] text-black text-center my-2">Cadastre-se</h1>
+                    <h1 className=" text-[24px] font-[600] text-black text-center my-2">Login</h1>
                     <form onSubmit={handleLogin} className=" flex flex-col">
                         <label htmlFor="email" className=" text-[16px] font-[600] text-black ml-2 mb-2">
                             E-mail:*
