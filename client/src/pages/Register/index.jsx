@@ -15,8 +15,9 @@ export default function Register() {
     return (
         <main className="h-[100vh] w-[100%] flex flex-row">
             <div className="flex flex-col h-[100%] w-[100%] md:w-[50vw] bg-blue-900 md:bg-slate-100 items-center md:justify-center">
-                <img src={Logo} alt="Logo E-Commece IREDE" className="w-[72px] h-[28px] my-8 block md:hidden" />
-
+                <Link to="/">
+                    <img src={Logo} alt="Logo E-Commece IREDE" className="w-[72px] h-[28px] my-8 block md:hidden" />
+                </Link>
                 <div className="flex flex-col w-[95%] max-w-[450px] mx-auto p-4 justify-center bg-white">
                     <h1 className=" text-[24px] font-[600] text-black text-center my-2">Cadastre-se</h1>
                     <form onSubmit={handleRegister} className=" flex flex-col">
@@ -41,7 +42,9 @@ export default function Register() {
             </div>
             <div className="hidden md:flex flex-col items-center justify-center md:w-[50vw]  h-[100%] bg-blue-900">
                 <h1 className=" max-w-[390px] w-[100%] text-[32px] text-white font-[400]">Sua nova experiência em compras online</h1>
-                <img src={Logo} alt="Logo E-Commece IREDE" className="w-[383px]" />
+                <Link to="/">
+                    <img src={Logo} alt="Logo E-Commece IREDE" className="w-[383px]" />
+                </Link>
             </div>
         </main>
     )

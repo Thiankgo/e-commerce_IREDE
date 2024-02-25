@@ -1,8 +1,8 @@
-import Pedido from "../../components/Pedido"
+import Pedidos from "../../components/Pedidos"
 import ProductImage from "../../assets/productimage.png"
 import { IoMdArrowDropdown } from "react-icons/io"
 
-export default function Pedidos() {
+export default function PedidosPage() {
     let pedidos1 = [
         { key: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis", status: "Finalizado" },
         { key: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis", status: "Aguardando pagamento" },
@@ -21,15 +21,7 @@ export default function Pedidos() {
                 </div>
                 <div className="bg-slate-100 p-3 flex flex-wrap gap-1 w-[100%] justify-items-start rounded-lg">
                     <h1 className="w-[100%] font-[600] text-[16px] text-black">Meus Pedidos</h1>
-                    <div className="flex flex-wrap gap-1 lg:gap-8 justify-items-start">
-                        {
-                            pedidos1?.length > 0 ?
-                                pedidos1.map((p) => (
-                                    <Pedido pedido={p} key={p.key}></Pedido>
-                                ))
-                                : <p>Sem produtos</p>
-                        }
-                    </div>
+                    <Pedidos pedidos={pedidos1}></Pedidos>
                 </div>
             </main>
         </>

@@ -73,7 +73,7 @@ export default function Header({ showMenu, setShowMenu, showCart, setShowCart })
                         <Link to="/login" > <button className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500">Entrar</button> </Link>
                         <Link to="/meu-carrinho">
                             <button className="w-6 h-6 pl-1 relative">
-                                <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2" ></MdOutlineShoppingCart>
+                                <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2 top-1" ></MdOutlineShoppingCart>
                             </button>
                         </Link>
                     </div>

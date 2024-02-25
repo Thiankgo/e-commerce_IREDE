@@ -1,19 +1,15 @@
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { Link } from "react-router-dom";
 import ProductImage from "../../assets/productimage.png"
 import CartCard from "../CartCard";
+import { CartContext } from "../../context/CartContext";
 
 export default function Cart({ showModal, setShowModal }) {
-    let carrinho = [
-        { key: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-        { key: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-        { key: 3, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-        { key: 4, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-    ]
+    const { cart, setCart } = useContext(CartContext)
 
-    let totalValue = carrinho.reduce((acc, val) => {
-        return acc + val.price
-      },0);
+    let totalValue = cart.reduce((acc, val) => {
+        return acc + (val.price * val.quantity)
+    }, 0);
 
     const ref = useRef()
 
@@ -29,11 +25,11 @@ export default function Cart({ showModal, setShowModal }) {
         }
     }, [showModal])
 
-    function handleEmpty(){
-
+    function handleEmpty() {
+        setCart([]); // Apaga todos os itens do carrinho
     }
 
-    function handleFinish(){
+    function handleFinish() {
 
     }
 
@@ -41,17 +37,17 @@ export default function Cart({ showModal, setShowModal }) {
         <dialog ref={ref} className=" m-auto flex flex-row backdrop:opacity-25 rounded-lg">
             <div className=" align-top w-[280px] px-6 py-4 flex flex-col overflow-hidden" style={{ display: showModal ? "block" : "none" }}>
                 <div className="font-[600] text-[16px] text-stone-900 mb-4">Meu Carrinho</div>
-                <div className=" overflow-y-scroll overflow-x-hidden max-h-[320px] border-y-[1px] border-stone-900">
+                <div className=" overflow-y-scroll overflow-x-hidden min-h-[80px] max-h-[320px] border-y-[1px] border-stone-900">
                     {
-                        carrinho?.length > 0 ?
-                            carrinho.map((p) => (
+                        cart?.length > 0 ?
+                            cart.map((p) => (
                                 <CartCard cartCard={p} key={p.key}></CartCard>
                             ))
-                            : <p>Sem produtos</p>
+                            : <p className=" flex justify-center my-10">Sem produtos</p>
                     }
                 </div>
                 <div className="font-[600] text-[16px] flex flex-row my-2">
-                    Valor total: 
+                    Valor total:
                     <div className=" ml-2 text-blue-900">R$ {totalValue.toFixed(2)}</div>
                 </div>
                 <div className=" mt-1 font-[600] text-[12px]">
