@@ -4,9 +4,6 @@ import ProductImage from "../../assets/productimage.png"
 import CartCard from "../CartCard";
 
 export default function Cart({ showModal, setShowModal }) {
-    const pathname = window.location.pathname;
-    console.log(pathname)
-
     let carrinho = [
         { key: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
         { key: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },

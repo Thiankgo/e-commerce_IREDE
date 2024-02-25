@@ -9,6 +9,7 @@ import Header from './components/Header'
 import Menu from './components/Menu'
 import { useState } from 'react'
 import Cart from './components/Cart'
+import ProductsPage from './pages/ProductsPage'
 
 function App() {
   const [showCart, setShowCart] = useState(false)
@@ -20,6 +21,7 @@ function App() {
         <Header showCart={showCart} setShowCart={setShowCart} showMenu={showMenu} setShowMenu={setShowMenu}/>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/produtos" element={<ProductsPage />} />
           <Route path="/meus-pedidos" element={<Pedidos />} />
           <Route path="/categorias" element={<Category />} />
           <Route path="/cadastrar" element={<Register />} />

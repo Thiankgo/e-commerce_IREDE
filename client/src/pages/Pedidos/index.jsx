@@ -14,9 +14,10 @@ export default function Pedidos() {
                 <button className="block md:hidden relative bg-orange-500 font-[600] text-slate-100 rounded-lg w-[100%] h-[48px] max-w-[270px] mx-auto">Meus pedidos
                     <IoMdArrowDropdown className="absolute w-8 h-8 right-[5%] top-[20%] m-auto" />
                 </button>
-                <div className="hidden md:block w-[250px] rounded bg-slate-100 text-orange-500">
-                    <div>Meus pedidos</div>
-                    <div>Minhas informações</div>
+                <div className="hidden md:block w-[250px] rounded text-orange-500 p-2">
+                    <h2 className="text-orange-500 font-semibold text-[16px] mb-2">Meus Pedidos</h2>
+                    <div className="h-px bg-gray-400 mb-2"></div>
+                    <h2 className="text-gray-600 font-semibold text-[16px]">Minhas Informações</h2>
                 </div>
                 <div className="bg-slate-100 p-3 flex flex-wrap gap-1 w-[100%] justify-items-start rounded-lg">
                     <h1 className="w-[100%] font-[600] text-[16px] text-black">Meus Pedidos</h1>

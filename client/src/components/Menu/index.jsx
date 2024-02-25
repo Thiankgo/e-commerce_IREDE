@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 export default function Menu({ showModal, setShowModal }) {
-    const pathname = window.location.pathname;
-    console.log(pathname)
+    const { pathname } = useLocation();
+
     const ref = useRef()
 
     function handleModal() {
@@ -28,11 +28,15 @@ export default function Menu({ showModal, setShowModal }) {
                         >Home</button>
                     </Link>
                     <Link to="/produtos">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname == "/produtos" ? " bg-slate-100 text-orange-500" : "")}
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/produtos") ? " bg-slate-100 text-orange-500" : "")}
                         >Produtos</button>
                     </Link>
                     <Link to="/categorias">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname == "/categorias" ? " bg-slate-100 text-orange-500" : "")}
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/categorias") ? " bg-slate-100 text-orange-500" : "")}
+                        >Categorias</button>
+                    </Link>
+                    <Link to="/meus-pedidos">
+                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/meus-pedidos") ? " bg-slate-100 text-orange-500" : "")}
                         >Categorias</button>
                     </Link>
                 </div>
