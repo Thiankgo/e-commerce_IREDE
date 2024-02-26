@@ -1,21 +1,24 @@
-import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
-import { Link } from "react-router-dom";
+import { useContext } from "react"
+import { CartContext } from "../../context/CartContext"
+import { Link } from "react-router-dom"
+import { CartDialogContext } from "../../context/CartDialogContext"
 
 export default function Product({ product }) {
-    const { cart, setCart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext)
+    const { setShowCart } = useContext(CartDialogContext)
 
-    function handleBuyProduct() {
-        const existingCartItemIndex = cart.findIndex(item => item.key === product.key);
+    function handleBuyProduct(e) {
+        e.preventDefault()
+        const existingCartItemIndex = cart.findIndex(item => item.key === product.key)
 
         if (existingCartItemIndex !== -1) {
             const updatedCart = cart.map((item, index) => {
                 if (index === existingCartItemIndex) {
-                    return { ...item, quantity: item.quantity + 1 };
+                    return { ...item, quantity: item.quantity + 1 }
                 }
-                return item;
-            });
-            setCart(updatedCart);
+                return item
+            })
+            setCart(updatedCart)
         } else {
             const newCartItem = {
                 key: product.key,
@@ -24,9 +27,11 @@ export default function Product({ product }) {
                 price: product.price,
                 category: product.category,
                 quantity: 1 
-            };
-            setCart([...cart, newCartItem]);
+            }
+            setCart([...cart, newCartItem])
         }
+
+        setShowCart(true)
     }
 
     return (
@@ -41,5 +46,5 @@ export default function Product({ product }) {
                 </div>
             </div>
         </Link>
-    );
+    )
 }

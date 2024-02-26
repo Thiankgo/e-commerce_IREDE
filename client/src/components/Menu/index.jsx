@@ -1,26 +1,29 @@
-import { useEffect, useRef } from "react"
-import { Link, useLocation } from "react-router-dom";
-export default function Menu({ showModal, setShowModal }) {
-    const { pathname } = useLocation();
+import { useContext, useEffect, useRef } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { MenuDialogContext } from "../../context/MenuDialogContext"
+
+export default function Menu() {
+    const { showMenu, setShowMenu } = useContext(MenuDialogContext)
+    const { pathname } = useLocation()
 
     const ref = useRef()
 
-    function handleModal() {
-        setShowModal(!showModal)
+    function handleMenu(e) {
+        e.preventDefault()
+        setShowMenu(!showMenu)
     }
 
     useEffect(() => {
-        if (showModal) {
-            ref.current?.showModal()
+        if (showMenu) {
+            ref.current.show()
         } else {
             ref.current.close()
         }
-    }, [showModal])
-
+    }, [showMenu])
 
     return (
-        <dialog ref={ref} className="m-auto flex  backdrop:opacity-25 rounded-lg">
-            <div className=" min-w-[280px] px-6 py-4 flex flex-col" style={{ display: showModal ? "block" : "none" }}>
+        <dialog ref={ref} className=" absolute top-1/4 m-auto flex backdrop:opacity-25 rounded-lg">
+            <div className=" min-w-[280px] px-6 py-4 flex flex-col" style={{ display: showMenu ? "block" : "none" }}>
                 <div className="font-[600] text-[16px] text-stone-900 mb-4">Páginas</div>
                 <div className=" border-y-[1px] border-stone-900  font-[600] text-[12px] text-stone-500">
                     <Link to="/">

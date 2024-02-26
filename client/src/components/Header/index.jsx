@@ -1,13 +1,16 @@
-import { GiHamburgerMenu } from "react-icons/gi";
-import { IoMdSearch } from "react-icons/io";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { GiHamburgerMenu } from "react-icons/gi"
+import { IoMdSearch } from "react-icons/io"
+import { MdOutlineShoppingCart } from "react-icons/md"
 import { Link } from 'react-router-dom'
-import { useLocation } from "react-router-dom";
-
+import { useLocation } from "react-router-dom"
 import Logo from "../../assets/logo.png"
+import { MenuDialogContext } from "../../context/MenuDialogContext"
+import { CartDialogContext } from "../../context/CartDialogContext"
+import { useContext } from "react"
 
 export function SearchBar() {
     function handleSearch(e) {
+        e.preventDefault()
         if (e.key === "Enter") {
             //console.log(e)
         }
@@ -27,24 +30,27 @@ export function SearchBar() {
     )
 }
 
-export default function Header({ showMenu, setShowMenu, showCart, setShowCart }) {
-    const { pathname } = useLocation();
+export default function Header() {
+    const { showCart, setShowCart } = useContext(CartDialogContext)
+    const { showMenu, setShowMenu } = useContext(MenuDialogContext)
+
+    const { pathname } = useLocation()
 
     function handleMenu(e) {
-        //console.log(e)
-        if (showMenu === false) setShowCart(false);
+        e.preventDefault()
+        if (showMenu === false) setShowCart(false)
         setShowMenu(!showMenu)
     }
 
     function handleShoppingCart(e) {
-        //console.log(e)
-        if (showCart === false) setShowMenu(false);
+        e.preventDefault()
+        if (showCart === false) setShowMenu(false)
         setShowCart(!showCart)
     }
 
     if (pathname.match("/cadastrar")
         || pathname.match("/login")) {
-        return null;
+        return null
     }
 
     return (
@@ -71,11 +77,9 @@ export default function Header({ showMenu, setShowMenu, showCart, setShowCart })
 
                         <Link to="/cadastrar"> <button className=" text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4" >Cadastre-se</button> </Link>
                         <Link to="/login" > <button className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500">Entrar</button> </Link>
-                        <Link to="/meu-carrinho">
-                            <button className="w-6 h-6 pl-1 relative">
-                                <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2 top-1" ></MdOutlineShoppingCart>
-                            </button>
-                        </Link>
+                        <button onClick={handleShoppingCart} className="w-6 h-6 pl-1 relative">
+                            <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2" ></MdOutlineShoppingCart>
+                        </button>
                     </div>
                     <div className=" mt-8 flex justify-center gap-8 text-[16px] font-[600] text-zinc-50">
                         <Link className={(pathname == "/" ? " text-orange-500" : "")}

@@ -7,19 +7,16 @@ import Login from './pages/Login'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import Menu from './components/Menu'
-import { useState } from 'react'
 import Cart from './components/Cart'
 import ProductsPage from './pages/ProductsPage'
 import ProductDetails from './pages/ProductDetails'
 
 function App() {
-  const [showCart, setShowCart] = useState(false)
-  const [showMenu, setShowMenu] = useState(false)
 
   return (
     <>
       <BrowserRouter>
-        <Header showCart={showCart} setShowCart={setShowCart} showMenu={showMenu} setShowMenu={setShowMenu}/>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/produtos" element={<ProductsPage />} />
@@ -29,8 +26,8 @@ function App() {
           <Route path="/cadastrar" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
-        <Cart showModal={showCart} setShowModal={setShowCart} />
-        <Menu showModal={showMenu} setShowModal={setShowMenu}/>
+        <Cart />
+        <Menu />
         <Footer />
       </BrowserRouter>
     </>
