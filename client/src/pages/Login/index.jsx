@@ -28,8 +28,8 @@ export default function Login() {
     }
 
     return (
-        <main className="h-[100vh] w-[100%] flex flex-row">
-            <div className="flex flex-col h-[100%] w-[100%] md:w-[50vw] bg-blue-900 md:bg-slate-100 items-center md:justify-center">
+        <main className="h-[100vh] w-full flex flex-row">
+            <div className="flex flex-col h-[100%] w-full md:w-[50vw] bg-blue-900 md:bg-slate-100 items-center md:justify-center">
                 <Link to="/">
                     <img src={Logo} alt="Logo E-Commece IREDE" className="w-[72px] h-[28px] my-8 block md:hidden" />
                 </Link>
@@ -52,7 +52,7 @@ export default function Login() {
                 </div>
             </div>
             <div className="hidden md:flex flex-col items-center justify-center md:w-[50vw]  h-[100%] bg-blue-900">
-                <h1 className=" max-w-[390px] w-[100%] text-[32px] text-white font-[400]">Sua nova experiência em compras online</h1>
+                <h1 className=" max-w-[390px] w-full text-[32px] text-white font-[400]">Sua nova experiência em compras online</h1>
                 <Link to="/">
                     <img src={Logo} alt="Logo E-Commece IREDE" className="w-[383px]" />
                 </Link>

@@ -2,13 +2,12 @@ import Logo from "../../assets/logo.png"
 import { FaFacebook } from "react-icons/fa"
 import { FaInstagram } from "react-icons/fa"
 import { FaWhatsapp } from "react-icons/fa"
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Footer() {
     const { pathname } = useLocation();
 
-    if (pathname.match("/cadastrar")
-        || pathname.match("/login")) {
+    if (pathname.match("/cadastrar") || pathname.match("/login")) {
         return null;
     }
 
@@ -19,15 +18,15 @@ export default function Footer() {
                     <div>
                         <img src={Logo} alt="Logo Irede" className="mb-4 w-[82px] h-[32px]" />
                         <div className="flex justify-between">
-                            <a href="http://">
+                            <Link to="/">
                                 <FaFacebook className="w-4 h-4" />
-                            </a>
-                            <a href="http://">
+                            </Link>
+                            <Link to="/">
                                 <FaInstagram className="w-4 h-4" />
-                            </a>
-                            <a href="http://">
+                            </Link>
+                            <Link to="/">
                                 <FaWhatsapp className="w-4 h-4" />
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className=" w-[180px]">
@@ -35,17 +34,17 @@ export default function Footer() {
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className=" font-[600]">Informações</h4>
-                        <a href="">Sobre o E-Rede Store</a>
-                        <a href="">Segurança</a>
-                        <a href="">Lista de desejos</a>
-                        <a href="">Trabalhe Conosco</a>
+                        <Link to="">Sobre o E-Rede Store</Link>
+                        <Link to="">Segurança</Link>
+                        <Link to="">Lista de desejos</Link>
+                        <Link to="">Trabalhe Conosco</Link>
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className=" font-[600]">Informações</h4>
-                        <a href="">Tênis</a>
-                        <a href="">Camiseta</a>
-                        <a href="">Acessórios</a>
-                        <a href="">Esportivo</a>
+                        <Link to="/produtos?category=Tênis">Tênis</Link>
+                        <Link to="/produtos?category=Camiseta">Camiseta</Link>
+                        <Link to="/produtos?category=Acessórios">Acessórios</Link>
+                        <Link to="/produtos?category=Esportivo">Esportivo</Link>
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className=" font-[600]">Localização</h4>
@@ -53,7 +52,7 @@ export default function Footer() {
                         <p>Bairro de Fátima, Fortaleza-CE</p>
                     </div>
                 </section>
-                <div className="w-[100%]">
+                <div className="w-full">
                     <p className="mt-4 text-center">2023 Irede</p>
 
                 </div>

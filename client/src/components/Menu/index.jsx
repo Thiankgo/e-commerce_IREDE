@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom"
 import { MenuDialogContext } from "../../context/MenuDialogContext"
 
 export default function Menu() {
-    const { showMenu, setShowMenu } = useContext(MenuDialogContext)
+    const { showMenu } = useContext(MenuDialogContext)
     const { pathname } = useLocation()
     const ref = useRef()
 
@@ -20,21 +20,21 @@ export default function Menu() {
     }
 
     return (
-        <dialog ref={ref} className=" absolute top-1/4 m-auto flex flex-row backdrop:opacity-25 rounded-lg">
+        <dialog ref={ref} className=" lg:hidden absolute top-1/4 m-auto flex flex-row backdrop:opacity-25 rounded-lg">
             <div className=" align-top w-[280px] px-6 py-4 flex flex-col overflow-hidden" style={{ display: showMenu ? "block" : "none" }}>
                 <div className="font-[600] text-[16px] text-stone-900 mb-4">Páginas</div>
-                <div className="border-y-[1px] border-stone-900 font-[600] text-[12px] text-stone-500">
+                <div className=" flex flex-col gap-2 py-2 border-y-[1px] border-stone-900 font-[600] text-[12px] text-stone-500">
                     <Link to="/">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname === "/" ? " bg-slate-100 text-orange-500" : "")}>Home</button>
+                        <button className={"h-[38px] w-full text-left px-4 rounded-md" + (pathname === "/" ? " bg-slate-100 text-orange-500" : "")}>Home</button>
                     </Link>
                     <Link to="/produtos">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/produtos") ? " bg-slate-100 text-orange-500" : "")}>Produtos</button>
+                        <button className={"h-[38px] w-full text-left px-4 rounded-md" + (pathname.match("/produtos") ? " bg-slate-100 text-orange-500" : "")}>Produtos</button>
                     </Link>
                     <Link to="/categorias">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/categorias") ? " bg-slate-100 text-orange-500" : "")}>Categorias</button>
+                        <button className={"h-[38px] w-full text-left px-4 rounded-md" + (pathname.match("/categorias") ? " bg-slate-100 text-orange-500" : "")}>Categorias</button>
                     </Link>
                     <Link to="/meus-pedidos">
-                        <button className={"h-[42px] w-[100%] text-left px-4 rounded-md" + (pathname.match("/meus-pedidos") ? " bg-slate-100 text-orange-500" : "")}>Meus Pedidos</button>
+                        <button className={"h-[38px] w-full text-left px-4 rounded-md" + (pathname.match("/meus-pedidos") ? " bg-slate-100 text-orange-500" : "")}>Meus Pedidos</button>
                     </Link>
                 </div>
                 <div className="mt-5 font-[600] text-[12px]">

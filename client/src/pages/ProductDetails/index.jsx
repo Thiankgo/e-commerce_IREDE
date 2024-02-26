@@ -2,12 +2,14 @@ import { useContext, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ProductImage from "../../assets/productimage.png"
 import { CartContext } from '../../context/CartContext'
+import { CartDialogContext } from '../../context/CartDialogContext'
 
 export default function ProductDetails() {
     const [quantity, setQuantity] = useState(1)
     const [product, setProduct] = useState(null)
     const { id } = useParams()
     const { cart, setCart } = useContext(CartContext)
+    const { setShowCart } = useContext(CartDialogContext)
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,6 +47,8 @@ export default function ProductDetails() {
             }
             setCart([...cart, newCartItem])
         }
+
+        setShowCart(true)
     }
 
     const handleQuantityChange = (event) => {
@@ -58,9 +62,9 @@ export default function ProductDetails() {
 
     return (
         <div className="max-w-[1000px] mx-auto p-5 my-4">
-            <div className="flex flex-col md:flex-row shadow rounded shadow-gray-400 p-5">
+            <div className="flex flex-col md:flex-row bg-slate-100 shadow rounded shadow-gray-400 p-5">
                 <div className="w-full md:w-1/2 md:max-w-[340px] text-[24px] ">
-                    <img src={product.image} alt={product.name} className="w-[100%] h-auto mb-4" />
+                    <img src={product.image} alt={product.name} className="w-full h-auto mb-4" />
                     <p className="hidden md:block text-blue-900 font-[600] mb-2">Quantidade disponível:</p>
                     <p className="hidden md:block text-stone-500 font-[500]">{product.quantity} itens disponíveis</p>
                 </div>
