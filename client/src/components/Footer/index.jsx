@@ -8,7 +8,7 @@ export default function Footer() {
     const { pathname } = useLocation();
 
     if (pathname.match("/cadastrar")
-    ||  pathname.match("/login")) {
+        || pathname.match("/login")) {
         return null;
     }
 

@@ -1,7 +1,4 @@
-
-
 import Pedido from "../../components/Pedido"
-import ProductImage from "../../assets/productimage.png"
 
 export default function PedidosPage({pedidos}) {
     return (

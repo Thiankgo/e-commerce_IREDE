@@ -1,5 +1,4 @@
 export default function CartCard({ cartCard }) {
-
     return (
         <>
             <div className="p-2 w-[100%] flex">

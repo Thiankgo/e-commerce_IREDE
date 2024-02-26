@@ -1,15 +1,29 @@
-import Logo from "../../assets/logo.png"
+import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import Logo from "../../assets/logo.png"
+import { AuthContext } from '../../context/AuthContext'
 
 export default function Register() {
-
+    const { login } = useContext(AuthContext)
+    const [formData, setFormData] = useState({ email: '', password: '', name: '' })
 
     function handleRegister(e) {
         e.preventDefault()
+        // server
+        const { email, password, name } = formData
+        // receber token
+        const avatar = '' 
+        const id = '' 
+        const token = '' 
+        login(email, avatar, name, id, token)
     }
 
     function handleUser(e) {
-
+        const { name, value } = e.target
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
     }
 
     return (
