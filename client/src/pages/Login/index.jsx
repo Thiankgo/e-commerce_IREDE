@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from "../../assets/logo.png"
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Login() {
+    const navigate = useNavigate();
     const { login } = useContext(AuthContext)
     const [formData, setFormData] = useState({ email: '', password: '' })
 
@@ -12,11 +13,13 @@ export default function Login() {
         // server
         const { email, password } = formData
         // receber token
-        const avatar = '' 
-        const nome = '' 
-        const id = '' 
-        const token = '' 
-        login(email, avatar, nome, id, token)
+        const avatar = 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+        const name = 'User'
+        const id = 1
+        const token = '123'
+        login(email, avatar, name, id, token)
+
+        navigate("/")
     }
 
     function handleUser(e) {

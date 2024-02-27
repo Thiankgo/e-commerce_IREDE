@@ -6,7 +6,7 @@ export default function AuthProvider({ children }) {
     const [auth, setAuth] = useState({
         email: '',
         avatar: '',
-        nome: '',
+        name: '',
         id: '',
         token: ''
     });
@@ -18,8 +18,8 @@ export default function AuthProvider({ children }) {
         }
     }, []);
 
-    function login(email, avatar, nome, id, token) {
-        const newAuth = { email, avatar, nome, id, token };
+    function login(email, avatar, name, id, token) {
+        const newAuth = { email, avatar, name, id, token };
         setAuth(newAuth);
         localStorage.setItem('auth', JSON.stringify(newAuth));
     }
@@ -28,7 +28,7 @@ export default function AuthProvider({ children }) {
         setAuth({
             email: '',
             avatar: '',
-            nome: '',
+            name: '',
             id: '',
             token: ''
         });

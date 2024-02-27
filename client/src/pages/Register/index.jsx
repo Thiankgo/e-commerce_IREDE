@@ -1,9 +1,10 @@
 import { useState, useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Logo from "../../assets/logo.png"
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Register() {
+    const navigate = useNavigate();
     const { login } = useContext(AuthContext)
     const [formData, setFormData] = useState({ email: '', password: '', name: '' })
 
@@ -11,19 +12,19 @@ export default function Register() {
         e.preventDefault()
         // server
         const { email, password, name } = formData
+        console.log(email, password, name)
         // receber token
-        const avatar = '' 
-        const id = '' 
-        const token = '' 
+        const avatar = 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+        const id = 1
+        const token = 'abcde'
         login(email, avatar, name, id, token)
+
+        navigate("/")
     }
 
     function handleUser(e) {
         const { name, value } = e.target
-        setFormData(prevState => ({
-            ...prevState,
-            [name]: value
-        }))
+        setFormData(prevState => ({ ...prevState, [name]: value }))
     }
 
     return (

@@ -37,7 +37,7 @@ export default function Cart() {
     }, 0);
 
     return (
-        <dialog ref={ref} className="absolute top-1/4 m-auto flex flex-row backdrop:opacity-25 rounded-lg">
+        <dialog ref={ref} className="fixed top-1/4 m-auto flex flex-row backdrop:opacity-25 rounded-lg">
             <div className="align-top w-[280px] px-6 py-4 flex flex-col overflow-hidden" style={{ display: showCart ? "block" : "none" }}>
                 <div className="font-[600] text-[16px] text-stone-900 mb-4">Meu Carrinho</div>
                 <div className="overflow-y-scroll overflow-x-hidden min-h-[50px] max-h-[320px] border-y-[1px] border-stone-900">

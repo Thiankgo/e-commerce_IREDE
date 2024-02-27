@@ -1,16 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import Logo from "../../assets/logo.png";
 import { MenuDialogContext } from "../../context/MenuDialogContext";
 import { CartDialogContext } from "../../context/CartDialogContext";
+import { AuthContext } from "../../context/AuthContext";
 import SearchBar from "../SearchBar";
 
 export default function Header() {
+    const [validToken, setValidToken] = useState(false);
+    const { auth, logout } = useContext(AuthContext);
     const { showCart, setShowCart } = useContext(CartDialogContext);
     const { showMenu, setShowMenu } = useContext(MenuDialogContext);
     const { pathname } = useLocation();
+
+    useEffect(() => {
+        setValidToken(auth.token !== "")
+    }, [auth.token]);
 
     function handleMenu(e) {
         e.preventDefault();
@@ -49,8 +56,20 @@ export default function Header() {
                     <div className="flex justify-between">
                         <img src={Logo} alt="Logo E-Commerce IREDE" className="w-[72px] h-[28px]" />
                         <SearchBar />
-                        <Link to="/cadastrar" className="text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4 text-center p-2">Cadastre-se</Link>
-                        <Link to="/login" className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500 text-center p-2">Entrar</Link>
+                        {
+                            validToken
+                                ?
+                                <>
+                                    <img src={auth?.avatar} alt="" className="w-[45px] h-[45px] rounded-full"/>
+                                    <p className="text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4 text-center p-2">Olá, {auth?.name.split(' ')[0]}</p>
+                                    <button onClick={() => (logout())} className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500 text-center p-2">Logout</button>
+                                </>
+                                :
+                                <>
+                                    <Link to="/cadastrar" className="text-[16px] font-[600] w-[120px] h-[40px] text-slate-100 mr-4 text-center p-2">Cadastre-se</Link>
+                                    <Link to="/login" className="mr-4 text-[16px] font-[600] rounded w-[120px] h-[40px] text-slate-100 bg-orange-500 text-center p-2">Entrar</Link>
+                                </>
+                        }
                         <button onClick={handleShoppingCart} className="w-6 h-6 pl-1 relative">
                             <MdOutlineShoppingCart className="fill-white scale-150 absolute left-2" />
                         </button>

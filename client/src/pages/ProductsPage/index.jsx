@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import Products from "../../components/Products";
-import ProductImage from "../../assets/productimage.png";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { useState, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import Products from "../../components/Products"
+import ProductImage from "../../assets/productimage.png"
+import { IoMdArrowDropdown } from "react-icons/io"
 
 
 export default function ProductsPage() {
-    const [category, setCategory] = useState('');
-    const [categories, setCategories] = useState([]);
-    const [products, setProducts] = useState([]);
-    const location = useLocation();
+    const [search, setSearch] = useState('')
+    const [category, setCategory] = useState('')
+    const [categories, setCategories] = useState([])
+    const [products, setProducts] = useState([])
+    const location = useLocation()
 
     useEffect(() => {
         setTimeout(() => {
@@ -26,50 +27,59 @@ export default function ProductsPage() {
                 { key: 10, name: "Sapatos Casuais", image: ProductImage },
                 { key: 11, name: "Sapatos de Festa", image: ProductImage },
                 { key: 12, name: "Sapatos de Trabalho", image: ProductImage }
-            ];
-            setCategories(mockCategories);
-        }, 400);
-    }, []);
+            ]
+            setCategories(mockCategories)
+        }, 400)
+    }, [])
 
     useEffect(() => {
         setTimeout(() => {
             const mockProducts = [
-                { key: 1, name: "Produto 1", image: ProductImage, price: 24.99, category: "Tênis" },
-                { key: 2, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 3, name: "Produto 3", image: ProductImage, price: 19.99, category: "Sandálias" },
-                { key: 4, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 5, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 6, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 7, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 8, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 9, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 10, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 11, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-            ];
+                { key: 1, name: "Tênis 1", image: ProductImage, price: 24.99, category: "Tênis" },
+                { key: 2, name: "Sapatos 1", image: ProductImage, price: 29.99, category: "Sapatos" },
+                { key: 3, name: "Sandálias 1", image: ProductImage, price: 19.99, category: "Sandálias" },
+                { key: 4, name: "Sapatos 2", image: ProductImage, price: 29.99, category: "Sapatos" },
+                { key: 5, name: "Sapatos 3", image: ProductImage, price: 29.99, category: "Sapatos" },
+                { key: 6, name: "Sapatos 4", image: ProductImage, price: 29.99, category: "Sapatos" },
+                { key: 7, name: "Sapatos 5", image: ProductImage, price: 29.99, category: "Sapatos" },
+                { key: 8, name: "Produto 6", image: ProductImage, price: 29.99, category: "Botas" },
+                { key: 9, name: "Produto 7", image: ProductImage, price: 29.99, category: "Botas" },
+                { key: 10, name: "Produto 8", image: ProductImage, price: 29.99, category: "Botas" },
+                { key: 11, name: "Produto 9", image: ProductImage, price: 29.99, category: "Botas" },
+            ]
 
-            setProducts(mockProducts);
-        }, 400);
-    }, []);
+            setProducts(mockProducts)
+        }, 400)
+    }, [])
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const queryCategory = searchParams.get('category');
+        const searchParams = new URLSearchParams(location.search)
+        const querySearch = searchParams.get('search')
+        if (querySearch) {
+            setSearch(querySearch)
+        }
+    }, [])
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search)
+        const queryCategory = searchParams.get('category')
         console.log(queryCategory)
-        const categoryExists = categories.some(cat => cat.name === queryCategory);
+        const categoryExists = categories.some(cat => cat.name === queryCategory)
         console.log(categoryExists)
 
         if (queryCategory && categoryExists) {
-            setCategory(queryCategory);
+            setCategory(queryCategory)
         }
-    }, [categories]);
+    }, [categories])
 
     const handleCategoryChange = (c) => {
-        if (c !== category) setCategory(c);
-        else setCategory("");
-    };
+        if (c !== category) setCategory(c)
+        else setCategory("")
+    }
 
-    const filteredProducts = category ? products.filter(product => product.category === category) : products;
-
+    var filteredProducts = category ? products.filter(product => product.category === category) : products
+    filteredProducts = filteredProducts.filter((product) => product.name.toLowerCase().indexOf(search.toLowerCase()) > -1)
+    console.log(filteredProducts)
     return (
         <>
             <section className="max-w-[1100px] flex flex-col md:flex-row justify-center mx-auto py-[32px]">
@@ -104,10 +114,10 @@ export default function ProductsPage() {
                         }
                     </div>
                 </div>
-                <div className="p-3 w-full md:w-3/4">
+                <div className="p-3  md:w-3/4">
                     <Products products={filteredProducts} />
                 </div>
             </section>
         </>
-    );
+    )
 }

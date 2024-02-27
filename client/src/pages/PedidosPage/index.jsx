@@ -21,7 +21,7 @@ export default function PedidosPage() {
 
     return (
         <>
-            <main className="max-w-[1100px] flex flex-col md:flex-row justify-center m-auto p-6 gap-4">
+            <main className="max-w-[1100px] flex flex-col md:flex-row  m-auto p-6 gap-4">
                 <div className="flex flex-col md:hidden  mx-auto mb-[16px] w-full">
                     <div className="relative w-full h-[48px] max-w-[270px] mx-auto">
                         <select name="category" id="category" onChange={(e) => setWindow(e.target.value)} className=" appearance-none text-center bg-orange-500 font-[600] text-slate-100 rounded-lg w-full h-full">
@@ -48,11 +48,10 @@ export default function PedidosPage() {
                             <>
                                 <div className="flex flex-row w-full justify-between my-2 font-[600] text-[16px] text-stone-500">
                                     <h1>Meus Pedidos</h1>
-                                    <h2 className="font-[500]">Status Meus Pedidos</h2>
+                                    <h2 className=" hidden md:block font-[500]">Status Meus Pedidos</h2>
                                 </div>
                                 <Pedidos pedidos={pedidos}></Pedidos>
                             </>
-
                     }
 
                 </div>
