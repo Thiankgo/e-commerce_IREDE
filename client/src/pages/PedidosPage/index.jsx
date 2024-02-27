@@ -32,9 +32,9 @@ export default function PedidosPage() {
                     </div>
                 </div>
                 <div className="hidden md:flex flex-col bg-slate-100 w-[250px] h-[85px] rounded text-orange-500 p-2">
-                    <button value="Meus Pedidos" onClick={(e) => setWindow(e.target.value)} className="text-orange-500 font-semibold text-[16px] mb-2 text-left">Meus Pedidos</button>
+                    <button value="Meus Pedidos" onClick={(e) => setWindow(e.target.value)} className={(window === "Meus Pedidos" ? "text-orange-500" : "text-gray-600") + " font-semibold text-[16px] mb-2 text-left"}>Meus Pedidos</button>
                     <div className="h-px bg-gray-400 mb-2"></div>
-                    <button value="Minhas Informações" onClick={(e) => setWindow(e.target.value)} className="text-gray-600 font-semibold text-[16px] text-left">Minhas Informações</button>
+                    <button value="Minhas Informações" onClick={(e) => setWindow(e.target.value)} className={(window !== "Meus Pedidos" ? "text-orange-500" : "text-gray-600") + " font-semibold text-[16px] text-left"}> Minhas Informações</button>
                 </div>
                 <div className="bg-slate-100 px-6 pt-3 flex flex-wrap gap-1 w-full justify-items-start rounded-lg">
                     {
@@ -55,7 +55,7 @@ export default function PedidosPage() {
                     }
 
                 </div>
-            </main>
+            </main >
         </>
     )
 }

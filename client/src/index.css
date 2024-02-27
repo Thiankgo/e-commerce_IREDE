@@ -33,7 +33,26 @@
   .header-mobile {
     display: none;
   }
+
   .header-browser {
     display: flex;
   }
 }
+
+.footer1 {
+  width: 100vw;
+  position: absolute;
+  top: 100vh;
+}
+
+@media (min-height: 1000px) {
+  .footer1 {
+    width: 100vw;
+    position:initial;
+  }
+}
+
+/* footer {
+  position: absolute;
+  top: calc(100vh + 187px);
+} */

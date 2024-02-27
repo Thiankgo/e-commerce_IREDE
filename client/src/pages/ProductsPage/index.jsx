@@ -82,7 +82,7 @@ export default function ProductsPage() {
     console.log(filteredProducts)
     return (
         <>
-            <section className="max-w-[1100px] flex flex-col md:flex-row justify-center mx-auto py-[32px]">
+            <section className="max-w-[1100px] flex flex-col md:flex-row justify-center mx-auto">
                 <div className="flex flex-col md:hidden  mx-auto mb-[16px] w-full">
                     <div className="relative w-full h-[48px] max-w-[270px] mx-auto">
                         <select name="category" id="category" onChange={(e) => handleCategoryChange(e.target.value)} className=" appearance-none text-center bg-orange-500 font-[600] text-slate-100 rounded-lg w-full h-full">

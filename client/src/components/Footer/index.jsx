@@ -12,7 +12,7 @@ export default function Footer() {
     }
 
     return (
-        <footer>
+        <footer className="footer1">
             <div className="flex flex-wrap justify-center bg-blue-900 text-slate-100 text-[10px] p-4">
                 <section className="flex flex-wrap border-b pb-4 gap-8">
                     <div>

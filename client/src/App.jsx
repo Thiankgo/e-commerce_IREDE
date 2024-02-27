@@ -15,21 +15,23 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/produtos" element={<ProductsPage />} />
-          <Route path="/produtos/:id" element={<ProductDetails />} />
-          <Route path="/meus-pedidos" element={<PedidosPage />} />
-          <Route path="/categorias" element={<Category />} />
-          <Route path="/cadastrar" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-        <Cart />
-        <Menu />
-        <Footer />
-      </BrowserRouter>
+      <div className='min-h-screen '>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/produtos" element={<ProductsPage />} />
+            <Route path="/produtos/:id" element={<ProductDetails />} />
+            <Route path="/meus-pedidos" element={<PedidosPage />} />
+            <Route path="/categorias" element={<Category />} />
+            <Route path="/cadastrar" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <Cart />
+          <Menu />
+          <Footer />
+        </BrowserRouter>
+      </div>
     </>
   )
 }
