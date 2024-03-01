@@ -1,0 +1,220 @@
+create table pessoas(
+ id serial not null primary key,
+ nome varchar not null,
+ idade integer not null
+ );
+
+
+create table telefones(
+ id serial not null primary key,
+ telefone varchar not null unique,
+ id_pessoa integer not null references pessoas(id)
+ on delete cascade
+ );
+
+insert into pessoas (nome, idade) values ('Calisto Silva,', 30),('Allan Silva',25),('David Dauli',28),('Adailton Aveiro',17);
+
+insert into telefones (telefone, id_pessoa) values ('40028922',1),('40068966',1),('40078977',1),('40038933',2),('40048944',3),('40058955',4),('40088988',4);
+;
+
+select SUM(idade) as "Soma das idades", AVG(idade) as "Média", MIN(idade) as "Menor idade", MAX(idade) as "Maior idade" from pessoas;
+
+select nome from pessoas where LEFT(nome,1) = 'A';
+
+select * from pessoas where LOWER(nome) LIKE '%av%';
+
+select * from pessoas where idade >= 25;
+
+update pessoas set idade = idade + 5;
+
+update pessoas set idade = idade + 2 where id = 1;
+
+delete from pessoas where id = 2 cascade;
+
+select p.*, COUNT(*) as "Qnt. telefones" from pessoas as p inner join telefones as t on p.id = t.id_pessoa where p.idade > 24  group by p.id;
+
+select * from pessoas limit 2;
+
+create database spotify_manha;
+
+\c spotify_manha
+
+create table plans(
+ id serial not null primary key,
+ plan varchar not null unique,
+ value real not null
+);
+ 
+create table users(
+id serial not null primary key, 
+"user" varchar not null,
+age integer not null,
+id_plan integer not null references plans(id),
+date_subscribe timestamp not null
+);
+
+create table artists(
+ id serial not null primary key,
+ artist varchar not null unique
+);
+
+create table albuns(
+ id serial not null primary key,
+ album varchar not null unique,
+ year integer not null,
+ id_artist integer not null references artists(id)
+);
+
+create table songs(
+ id serial not null primary key,
+ song varchar not null unique,
+ duration integer not null,
+ id_artist integer not null references artists(id)
+);
+
+create table album_songs(
+ id serial not null primary key,
+ id_album integer not null references albuns(id),
+ id_song integer not null references songs(id)
+);
+
+create table following(
+ id serial not null primary key,
+ id_user integer not null references users(id),
+ id_artist integer not null references artists(id)
+);
+
+create table reproductions(
+ id serial not null primary key,
+ date_reproduction timestamp not null,
+ id_user integer not null references users(id),
+ id_song integer not null references songs(id)
+);
+
+create database biblioteca_manha;
+
+\c biblioteca_manha
+
+create table users(
+ id serial not null primary key,
+ name varchar not null
+);
+
+create table addresses(
+ id serial not null primary key,
+ street varchar not null,
+ street_number varchar not null,
+ city varchar not null,
+ country varchar not null,
+ postcode varchar not null unique
+);
+
+create table user_addresses(
+ id serial not null primary key,
+ id_user integer not null references users(id)
+ id_address integer not null references addresses(id)
+);
+
+create table phones(
+ id serial not null primary key,
+ telefone varchar not null unique,
+ id_user integer not null references users(id)
+ on delete cascade
+);
+
+create table authors(
+ id serial not null primary key,
+ author varchar not null unique,
+);
+
+create table books(
+ id serial not null primary key,
+ book varchar not null,
+ genre varchar not null,
+ in_stock integer not null,
+ id_author integer not null references authors(id)
+ on delete cascade
+);
+
+create table book_loan(
+ id serial not null primary key,
+ date_taken timestamp not null,
+ date_due_back timestamp not null,
+ date_returned timestamp,
+ id_user integer not null references users(id)
+ id_book integer not null references books(id)
+);
+----------------------------------------------------
+create database e_commerce_manha;
+
+\c e_commerce_manha
+
+begin;
+
+create table users(
+ id serial not null primary key,
+ name varchar not null,
+ avatar varchar,
+ email varchar not null unique,
+ password varchar not null
+);
+
+create table category(
+ id serial not null primary key,
+ image varchar not null,
+ category varchar not null unique
+);
+
+create table products(
+ id serial not null primary key,
+ name varchar not null,
+ description varchar not null,
+ price real not null,
+ quantity integer not null,
+ image varchar not null,
+ id_category integer not null references category(id)
+);
+
+create table sales(
+  id serial not null primary key,
+  date timestamp not null
+);
+
+create table items(
+ id serial not null primary key,
+ id_user integer not null references users(id),
+ id_product integer not null references products(id),
+ id_sale integer not null references sales(id),
+ quantity integer not null,
+ price real not null
+);
+
+insert into sales (date) values (now);
+
+
+
+--------------------------------
+
+select * from pessoas as p inner join telefones as t on p.id = t.id_pessoa;
+
+create table people(
+ id serial not null primary key,
+ name varchar not null,
+ email varchar not null unique
+ );
+
+
+create table phones(
+ id serial not null primary key,
+ phone varchar not null unique,
+ id_people integer not null references people(id)
+ on delete cascade
+ );
+
+insert into people (name, email) values ('Calisto Silva,', 'cal@gmail.com'),('Allan Silva','al@gmail.com'),('David Dauli','dav@gmail.com'),('Adailton Aveiro','ada@gmail.com'),('Jorge Virgulino','jorg@gmail.com');
+
+insert into phones (phone, id_people) values ('40028922',6),('40068966',6),('40078977',6),('40038933',7),('40048944',8),('40058955',9),('40088988',9);
+;
+
+insert into people (name, email) values ($1, $2);
+
