@@ -31,10 +31,6 @@ export default function Header() {
         setShowCart(!showCart);
     }
 
-    if (pathname.match("/cadastrar") || pathname.match("/login")) {
-        return null;
-    }
-
     return (
         <header>
             <div className="header-mobile h-[140px] bg-blue-900">

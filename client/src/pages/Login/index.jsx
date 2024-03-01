@@ -19,7 +19,7 @@ export default function Login() {
         const token = '123'
         login(email, avatar, name, id, token)
 
-        navigate("/")
+        navigate(-1)
     }
 
     function handleUser(e) {

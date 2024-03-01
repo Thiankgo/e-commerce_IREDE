@@ -2,14 +2,9 @@ import Logo from "../../assets/logo.png"
 import { FaFacebook } from "react-icons/fa"
 import { FaInstagram } from "react-icons/fa"
 import { FaWhatsapp } from "react-icons/fa"
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
-    const { pathname } = useLocation();
-
-    if (pathname.match("/cadastrar") || pathname.match("/login")) {
-        return null;
-    }
 
     return (
         <footer className="footer1">

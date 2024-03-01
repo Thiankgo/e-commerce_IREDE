@@ -1,14 +1,22 @@
-import { useContext, useEffect, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import CartCard from "../CartCard";
 import { CartContext } from "../../context/CartContext";
 import { CartDialogContext } from "../../context/CartDialogContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Cart() {
+    const [validToken, setValidToken] = useState(false)
+    const { auth } = useContext(AuthContext)
     const { cart, setCart } = useContext(CartContext);
     const { showCart, setShowCart } = useContext(CartDialogContext);
     const ref = useRef();
     const { pathname } = useLocation();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        setValidToken(auth.token !== "")
+    }, [auth.token])
 
     useEffect(() => {
         if (showCart) {
@@ -25,6 +33,11 @@ export default function Cart() {
 
     function handleFinish(e) {
         e.preventDefault();
+        if (validToken) {
+
+        } else {
+            navigate("/cadastrar")
+        }
         // TODO Handle finish purchase
     }
 

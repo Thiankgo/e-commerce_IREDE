@@ -19,7 +19,7 @@ export default function Register() {
         const token = 'abcde'
         login(email, avatar, name, id, token)
 
-        navigate("/")
+        navigate(-1)
     }
 
     function handleUser(e) {

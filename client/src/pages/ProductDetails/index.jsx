@@ -31,29 +31,37 @@ export default function ProductDetails() {
         if (existingCartItemIndex !== -1) {
             const updatedCart = cart.map((item, index) => {
                 if (index === existingCartItemIndex) {
-                    return { ...item, quantity: item.quantity + quantity }
+                    if (!isNaN(quantity)) {
+                        return { ...item, quantity: Math.min(product.quantity, item.quantity + quantity) }
+                    } else {
+                        alert("Selecione uma quantidade")
+                    }
                 }
                 return item
             })
             setCart(updatedCart)
         } else {
-            const newCartItem = {
-                key: product.key,
-                name: product.name,
-                image: product.image,
-                price: product.price,
-                category: product.category,
-                quantity: quantity
+            if (!isNaN(quantity)) {
+                const newCartItem = {
+                    key: product.key,
+                    name: product.name,
+                    image: product.image,
+                    price: product.price,
+                    category: product.category,
+                    quantity: quantity
+                }
+                setCart([...cart, newCartItem])
+            } else {
+                alert("Selecione uma quantidade")
             }
-            setCart([...cart, newCartItem])
         }
 
         setShowCart(true)
     }
 
     const handleQuantityChange = (event) => {
-        const newQuantity = parseInt(event.target.value)
-        setQuantity(newQuantity)
+        var newQuantity = parseInt(event.target.value)
+        setQuantity(Math.min(product.quantity, newQuantity))
     }
 
     if (!product) {
