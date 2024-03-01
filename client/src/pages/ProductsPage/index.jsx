@@ -93,7 +93,7 @@ export default function ProductsPage() {
                                 ))
                             }
                         </select>
-                        <IoMdArrowDropdown className="absolute w-8 h-8 right-[5%] top-[20%] m-auto text-white" />
+                        <IoMdArrowDropdown className="absolute w-8 h-8 right-[5%] top-[20%] m-auto text-white pointer-events-none" />
                     </div>
                 </div>
 

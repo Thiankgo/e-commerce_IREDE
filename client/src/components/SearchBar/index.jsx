@@ -1,14 +1,24 @@
-import { useState } from "react";
-import { IoMdSearch } from "react-icons/io";
+import { useEffect, useState } from "react"
+import { IoMdSearch } from "react-icons/io"
+import { useNavigate } from "react-router-dom"
 
 export default function SearchBar() {
-    const [searchText, setSearchText] = useState('');
+    const [searchText, setSearchText] = useState('')
+    const navigate = useNavigate()
 
     function handleSearch(e) {
         if (e.key === 'Enter') {
-            window.location.href = `/produtos?search=${encodeURIComponent(searchText)}`;
+            window.location.href = `/produtos?search=${encodeURIComponent(searchText)}`
         }
     }
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search)
+        const querySearch = searchParams.get('search')
+        if (querySearch) {
+            setSearchText(querySearch)
+        }
+    }, [])
 
     return (
         <>
@@ -21,5 +31,5 @@ export default function SearchBar() {
                 <input placeholder="Buscar" type="text" value={searchText} onChange={(e) => setSearchText(e.target.value)} onKeyDown={handleSearch} className="h-[44px] w-full pl-[28px] text-[#666666] text-[16px] font-[400] rounded" />
             </div>
         </>
-    );
+    )
 }
