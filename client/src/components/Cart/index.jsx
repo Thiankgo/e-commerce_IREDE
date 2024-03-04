@@ -33,10 +33,33 @@ export default function Cart() {
 
     function handleFinish(e) {
         e.preventDefault();
-        
-        if (validToken) {
-            if(cart.length>0){
 
+        if (validToken) {
+            if (cart.length > 0) {
+                const email = auth.email;
+                const sales = cart.map(item => ({
+                    product: item.id,
+                    quantity: item.quantity
+                }));
+
+                fetch('http://localhost:3000/items', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, sales })
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            setCart([]);
+                            navigate("/meus-pedidos");
+                        } else {
+                            throw new Error('Erro ao finalizar a compra');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao finalizar a compra:', error);
+                    });
             } else {
                 navigate("/produtos")
             }
@@ -60,7 +83,7 @@ export default function Cart() {
                 <div className="font-[600] text-[16px] text-stone-900 mb-4">Meu Carrinho</div>
                 <div className="overflow-y-scroll overflow-x-hidden min-h-[50px] max-h-[320px] border-y-[1px] border-stone-900">
                     {cart?.length > 0 ? (
-                        cart.map((p) => <CartCard cartCard={p} key={p.key} />)
+                        cart.map((p) => <CartCard cartCard={p} key={p.id} />)
                     ) : (
                         <p className="flex justify-center my-4">Sem produtos</p>
                     )}
@@ -73,7 +96,7 @@ export default function Cart() {
                     <button onClick={handleEmpty} className="h-[30px] w-[50%] text-stone-500">
                         Esvaziar
                     </button>
-                    <button onClick={handleFinish} className={`h-[30px] w-[50%] ${cart.length>0?"text-white bg-blue-900":"bg-stone-200 text-blue-900"} rounded font-[400]`}>
+                    <button onClick={handleFinish} className={`h-[30px] w-[50%] ${cart.length > 0 ? "text-white bg-blue-900" : "bg-stone-200 text-blue-900"} rounded font-[400]`}>
                         Finalizar Compra
                     </button>
                 </div>

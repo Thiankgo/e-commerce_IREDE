@@ -12,18 +12,12 @@ export default function ProductDetails() {
     const { setShowCart } = useContext(CartDialogContext)
 
     useEffect(() => {
-        setTimeout(() => {
-            const fetchedProduct = {
-                id: parseInt(id),
-                name: "a",
-                category: "Tênis",
-                price: 24.99,
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget nunc eget ligula ullamcorper rutrum. Nam vitae ex et nisl luctus venenatis. Integer ut sem vestibulum, congue mauris ac, suscipit odio. Aenean accumsan urna at dolor venenatis suscipit. Nullam non elit id felis suscipit pharetra.",
-                image: ProductImage,
-                quantity: 10
-            }
-            setProduct(fetchedProduct)
-        }, 500)
+        fetch(`http://localhost:3000/products/${id}`) 
+            .then(response => response.json())
+            .then(data => {
+                setProduct(data);
+            })
+            .catch(error => console.log('Erro produto:', error));
     }, [id])
 
     function handleBuy() {

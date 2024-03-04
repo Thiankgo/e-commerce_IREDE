@@ -1,25 +1,22 @@
 import Pedidos from "../../components/Pedidos"
 import ProductImage from "../../assets/productimage.png"
 import { IoMdArrowDropdown } from "react-icons/io"
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useContext, useEffect, useState } from "react"
+import { AuthContext } from "../../context/AuthContext"
 
 export default function PedidosPage() {
-    const { auth } = useContext(AuthContext);
-    const [pedidos, setPedidos] = useState([]);
-    const [window, setWindow] = useState("Meus Pedidos");
+    const { auth } = useContext(AuthContext)
+    const [pedidos, setPedidos] = useState([])
+    const [window, setWindow] = useState("Meus Pedidos")
 
     useEffect(() => {
-        setTimeout(() => {
-            const mockPedidos = [
-                { id: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-                { id: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-                { id: 3, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-            ];
-
-            setPedidos(mockPedidos);
-        }, 400);
-    }, []);
+        fetch(`http://localhost:3000/items?email=${auth.email}`) 
+            .then(response => response.json())
+            .then(data => {
+                setPedidos(data)
+            })
+            .catch(error => console.log('Erro ao buscar pedidos:', error))
+    }, [])
 
     return (
         <>
