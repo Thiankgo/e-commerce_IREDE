@@ -22,6 +22,37 @@ export default function Login() {
         navigate(-1)
     }
 
+    function handleLogin(e) {
+        e.preventDefault();
+        
+        const { email, password } = formData;
+    
+        fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('E-mail ou senha incorretos');
+            }
+        })
+        .then(data => {
+            const { userId } = data;
+            // Faça o que precisar com o userId, como salvar no contexto de autenticação
+            login(email, avatar, name, id, token)
+            navigate(-1);
+        })
+        .catch(error => {
+            console.error('Erro ao fazer login:', error);
+        });
+    }
+    
+
     function handleUser(e) {
         const { name, value } = e.target
         setFormData(prevState => ({
