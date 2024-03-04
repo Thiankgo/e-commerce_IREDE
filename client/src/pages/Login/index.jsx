@@ -9,49 +9,35 @@ export default function Login() {
     const [formData, setFormData] = useState({ email: '', password: '' })
 
     function handleLogin(e) {
-        e.preventDefault()
-        // server
-        const { email, password } = formData
-        // receber token
-        const avatar = 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
-        const name = 'User'
-        const id = 1
-        const token = '123'
-        login(email, avatar, name, id, token)
-
-        navigate(-1)
-    }
-
-    function handleLogin(e) {
         e.preventDefault();
-        
+
         const { email, password } = formData;
-    
+
         fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, avatar: 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg' })
         })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('E-mail ou senha incorretos');
-            }
-        })
-        .then(data => {
-            const { userId } = data;
-            // Faça o que precisar com o userId, como salvar no contexto de autenticação
-            login(email, avatar, name, id, token)
-            navigate(-1);
-        })
-        .catch(error => {
-            console.error('Erro ao fazer login:', error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    if (response.status === 401) throw { message: "Email ou Senha incorretos", status: response.status };
+                    else throw { message: "Erro ao fazer login", status: response.status };
+                }
+            })
+            .then(data => {
+                const { id, token, avatar, name } = data;
+                login(email, avatar, name, id, token)
+                navigate(-1);
+            })
+            .catch(error => {
+                console.error('Erro ao fazer login:', error);
+            });
     }
-    
+
 
     function handleUser(e) {
         const { name, value } = e.target

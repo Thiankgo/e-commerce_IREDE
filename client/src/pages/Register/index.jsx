@@ -9,17 +9,34 @@ export default function Register() {
     const [formData, setFormData] = useState({ email: '', password: '', name: '' })
 
     function handleRegister(e) {
-        e.preventDefault()
-        // server
-        const { email, password, name } = formData
-        console.log(email, password, name)
-        // receber token
-        const avatar = 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
-        const id = 1
-        const token = 'abcde'
-        login(email, avatar, name, id, token)
+        e.preventDefault();
 
-        navigate(-1)
+        const { email, password, name } = formData;
+
+        fetch('http://localhost:3000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password, name, avatar: 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg' })
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    if(response.status === 400) throw {message:"Email existente", status: response.status};
+                    else throw {message:"Erro ao registrar usuário", status: response.status};
+                }
+            })
+            .then(data => {
+                const { id, token, avatar } = data;
+                login(email, avatar, name, id, token)
+                navigate(-1);
+            })
+            .catch(error => {
+                console.error('Erro ao fazer login:', error);
+                alert(error.message)
+            });
     }
 
     function handleUser(e) {

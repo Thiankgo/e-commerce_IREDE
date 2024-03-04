@@ -210,6 +210,14 @@ products
   "quantity": 99,
   "image": "https://t-static.dafiti.com.br/8hN4QoH1WUISIiUSah-UBlJgiVQ=/fit-in/430x623/static.dafiti.com.br/p/nike-tênis-nike-air-versitile-branco%2fazul-5350-1674282-1-zoom.jpg"
 }
+{
+  "name": "Smart Watt",
+  "category": "Smart Watch",
+  "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum, vero. At nesciunt vel, quo deserunt, officiis ipsa possimus amet velit quam ipsum porro. Quia maiores dolorem voluptate quidem eos? Cumque!",
+  "price": 249.99,
+  "quantity": 95,
+  "image": "https://images-americanas.b2w.io/produtos/6672441651/imagens/smart-watch-branco-c-nota-fiscal-varias-funcoes/6672441651_1_large.jpg"
+}
 
 --------------------------------
 

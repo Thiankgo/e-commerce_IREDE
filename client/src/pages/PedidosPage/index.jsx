@@ -10,13 +10,13 @@ export default function PedidosPage() {
     const [window, setWindow] = useState("Meus Pedidos")
 
     useEffect(() => {
-        fetch(`http://localhost:3000/items?email=${auth.email}`) 
+        fetch(`http://localhost:3000/items?email=${auth.email}&token=${auth.token}`) 
             .then(response => response.json())
             .then(data => {
                 setPedidos(data)
             })
             .catch(error => console.log('Erro ao buscar pedidos:', error))
-    }, [])
+    }, [auth])
 
     return (
         <>

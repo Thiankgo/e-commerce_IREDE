@@ -8,7 +8,6 @@ export default function Container({ children }) {
     const [validToken, setValidToken] = useState(false)
     const { auth } = useContext(AuthContext)
     const { pathname } = useLocation()
-    const navigate = useNavigate()
 
     var showHeaderFooter = !(pathname.match("/cadastrar") || pathname.match("/login"))
 

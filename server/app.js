@@ -13,14 +13,16 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const userQuery = await pool.query('SELECT id FROM users WHERE email = $1 AND password = $2', [email, password]);
+        const userQuery = await pool.query('SELECT id, name, email, avatar FROM users WHERE email = $1 AND password = $2',
+            [email, password]);
         if (userQuery.rows.length === 0) {
             throw { message: 'E-mail ou senha incorretos', status: 401 };
         }
 
-        const userId = userQuery.rows[0].id;
+        const user = userQuery.rows[0];
 
-        res.status(200).json({ message: 'Login bem-sucedido', userId });
+        res.status(200).json({ ...user, token: '12345' });
+
     } catch (error) {
         console.error('Erro ao fazer login:', error);
         const status = error.status || 500;
@@ -31,24 +33,22 @@ app.post('/login', async (req, res) => {
 
 
 app.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, avatar } = req.body;
 
     try {
-        // Verifica se o email já está em uso
         const userExistQuery = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
         if (userExistQuery.rows.length > 0) {
             throw { message: 'E-mail já está em uso', status: 400 };
         }
 
-        // Insere o novo usuário no banco de dados
         const newUserQuery = await pool.query(
-            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id',
-            [name, email, password]
+            'INSERT INTO users (name, email, password, avatar) VALUES ($1, $2, $3, $4) RETURNING id, name, email, avatar',
+            [name, email, password, avatar]
         );
 
-        const userId = newUserQuery.rows[0].id;
+        const user = newUserQuery.rows[0];
 
-        res.status(201).json({ message: 'Usuário registrado com sucesso', userId });
+        res.status(201).json({ ...user, token: '12345' });
     } catch (error) {
         console.error('Erro ao registrar usuário:', error);
         const status = error.status || 500;
@@ -234,69 +234,6 @@ app.post("/category", async (req, res) => {
         return res.status(status).json({ message, status })
     }
 })
-
-
-// app.post("/pessoas/add", async (req, res) => {
-//     try {
-//         const { name, email, phones } = req.body
-
-//         const client = await pool.connect()
-
-//         const insertQuery = "insert into people (name, email) values ($1, $2) returning id"
-//         var data = await client.query(insertQuery, [name, email])
-//         var idPerson = data.rows[0].id
-
-//         if (idPerson != undefined) {
-//             const insertQueryPhone = "insert into phones (phone, id_people) values ($1, $2)"
-//             if (phones && phones.length > 0) {
-//                 for (let phone of phones) {
-//                     var data = await client.query(insertQueryPhone,
-//                         [phone, idPerson])
-//                 }
-//             }
-//         }
-
-//         client.release()
-
-//         return res.status(200).json({ name, email, phones })
-//     }
-//     catch (err) {
-//         console.log("erro ao add person")
-//         return res.status(500).send(err)
-
-//     }
-// })
-
-// app.post("/pessoas/edit", async (req, res) => {
-//     try {
-//         const { name, email, phones } = req.body
-
-//         const client = await pool.connect()
-//         //todo
-//         const insertQuery = "update people (name, email) values ($1, $2) returning id"
-//         var data = await client.query(insertQuery, [name, email])
-//         var idPerson = data.rows[0].id
-
-//         if (idPerson != undefined) {
-//             const insertQueryPhone = "insert into phones (phone, id_people) values ($1, $2)"
-//             if (phones && phones.length > 0) {
-//                 for (let phone of phones) {
-//                     var data = await client.query(insertQueryPhone,
-//                         [phone, idPerson])
-//                 }
-//             }
-//         }
-
-//         client.release()
-
-//         return res.status(200).json({ name, email, phones })
-//     }
-//     catch (err) {
-//         console.log("erro ao add person")
-//         return res.status(500).send(err)
-
-//     }
-// })
 
 app.listen(port, async () => {
     console.log(`Server started at https://localhost:${port}/`)

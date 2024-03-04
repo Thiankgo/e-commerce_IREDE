@@ -76,7 +76,7 @@ export default function ProductDetails() {
                     <h2 className="text-[24px] md:text-[40px] font-[600] text-blue-900 mb-2">{product.name}</h2>
                     <div className="flex gap-4">
                         <p className="mb-4">{product.category}</p>
-                        <p className="mb-4">R$ {product.price.toLocaleString()}</p>
+                        <p className="mb-4">R$ {product.price.toFixed(2).toLocaleString()}</p>
                     </div>
                     <p className="text-[14px] md:text-[24px]">{product.description}</p>
                     <div className="flex flex-col sm:flex-row">
