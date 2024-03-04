@@ -12,9 +12,9 @@ export default function PedidosPage() {
     useEffect(() => {
         setTimeout(() => {
             const mockPedidos = [
-                { key: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-                { key: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
-                { key: 3, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
+                { id: 1, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
+                { id: 2, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
+                { id: 3, name: "Nique Air Surf", image: ProductImage, price: 24.99, category: "Tênis" },
             ];
 
             setPedidos(mockPedidos);

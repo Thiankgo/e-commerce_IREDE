@@ -14,7 +14,7 @@ export default function ProductDetails() {
     useEffect(() => {
         setTimeout(() => {
             const fetchedProduct = {
-                key: parseInt(id),
+                id: parseInt(id),
                 name: "a",
                 category: "Tênis",
                 price: 24.99,
@@ -27,7 +27,7 @@ export default function ProductDetails() {
     }, [id])
 
     function handleBuy() {
-        const existingCartItemIndex = cart.findIndex(item => item.key === product.key)
+        const existingCartItemIndex = cart.findIndex(item => item.id === product.id)
         if (existingCartItemIndex !== -1) {
             const updatedCart = cart.map((item, index) => {
                 if (index === existingCartItemIndex) {
@@ -45,7 +45,7 @@ export default function ProductDetails() {
         } else {
             if (!isNaN(quantity)) {
                 const newCartItem = {
-                    key: product.key,
+                    id: product.id,
                     name: product.name,
                     image: product.image,
                     price: product.price,

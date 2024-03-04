@@ -79,7 +79,7 @@ export default function ProductsPage() {
                             categories?.length > 0
                                 ?
                                 categories.map((c) => (
-                                    <label key={c.key} className=" h-[40px] inline-flex items-center font-[600] text-[16px] text-stone-500 rounded hover:bg-slate-100">
+                                    <label key={c.id} className=" h-[40px] inline-flex items-center font-[600] text-[16px] text-stone-500 rounded hover:bg-slate-100">
                                         <input type="radio" name="category" value={c.name} checked={category === c.name} onChange={() => { }} onClick={() => handleCategoryChange(c.name)} className="form-radio h-[12px] w-[12px] appearance-none" />
                                         <span className={`${category === c.name ? 'bg-orange-500' : ''} inline-block h-3 w-3 rounded-full border border-gray-400 mr-4`}  ></span>
                                         <span className={category === c.name ? "text-orange-500" : ""}>{c.name}</span>

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 export default function Product({ product }) {
     return (
-        <Link to={`/produtos/${product.key}`}>
+        <Link to={`/produtos/${product.id}`}>
             <div className="w-[144px] h-[190px] shadow-md rounded">
                 <img src={product.image} alt={product.name} className="w-40 h-[96px]" />
                 <div className="p-2">
