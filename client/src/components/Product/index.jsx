@@ -8,7 +8,7 @@ export default function Product({ product }) {
                 <div className="p-2">
                     <h3 className="font-[700] text-[18px] text-blue-900">{product.name}</h3>
                     <p className="text-gray-300 text-[12px] font-[500]">{product.category}</p>
-                    <h4 className="font-[600] text-[16px] text-orange-500">R$ {product.price.toLocaleString()}</h4>
+                    <h4 className="font-[600] text-[16px] text-orange-500">R$ {product.price.toFixed(2)}</h4>
                 </div>
             </div>
         </Link>

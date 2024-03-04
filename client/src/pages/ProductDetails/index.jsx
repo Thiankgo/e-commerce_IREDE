@@ -32,7 +32,9 @@ export default function ProductDetails() {
             const updatedCart = cart.map((item, index) => {
                 if (index === existingCartItemIndex) {
                     if (!isNaN(quantity)) {
-                        return { ...item, quantity: Math.min(product.quantity, item.quantity + quantity) }
+                        if( item.quantity + quantity > product.quantity){
+                            alert(`Só existem mais ${product.quantity - item.quantity} produtos disponíveis!`)
+                        } else return { ...item, quantity: Math.min(product.quantity, item.quantity + quantity) }
                     } else {
                         alert("Selecione uma quantidade")
                     }
@@ -56,7 +58,7 @@ export default function ProductDetails() {
             }
         }
 
-        setShowCart(true)
+        setShowCart(!isNaN(quantity))
     }
 
     const handleQuantityChange = (event) => {

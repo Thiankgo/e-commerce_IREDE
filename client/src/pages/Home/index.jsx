@@ -7,24 +7,13 @@ export default function Home() {
     const [products, setProducts] = useState(null);
 
     useEffect(() => {
-        setTimeout(() => {
-            const mockProducts = [
-                { key: 1, name: "Produto 1", image: ProductImage, price: 24.99, category: "Tênis" },
-                { key: 2, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 3, name: "Produto 3", image: ProductImage, price: 19.99, category: "Sandálias" },
-                { key: 4, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 5, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 6, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 7, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 8, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 9, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 10, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-                { key: 11, name: "Produto 2", image: ProductImage, price: 29.99, category: "Sapatos" },
-            ];
-
-            setProducts(mockProducts);
-        }, 400);
-    }, []);
+        fetch('http://localhost:3000/products') 
+            .then(response => response.json())
+            .then(data => {
+                setProducts(data);
+            })
+            .catch(error => console.log('Erro produtos:', error));
+    }, [])
 
     return (
         <>

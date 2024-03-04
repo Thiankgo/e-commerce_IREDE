@@ -33,8 +33,13 @@ export default function Cart() {
 
     function handleFinish(e) {
         e.preventDefault();
+        
         if (validToken) {
+            if(cart.length>0){
 
+            } else {
+                navigate("/produtos")
+            }
         } else {
             navigate("/cadastrar")
         }
@@ -68,7 +73,7 @@ export default function Cart() {
                     <button onClick={handleEmpty} className="h-[30px] w-[50%] text-stone-500">
                         Esvaziar
                     </button>
-                    <button onClick={handleFinish} className="h-[30px] w-[50%] text-white bg-blue-900 rounded font-[400]">
+                    <button onClick={handleFinish} className={`h-[30px] w-[50%] ${cart.length>0?"text-white bg-blue-900":"bg-stone-200 text-blue-900"} rounded font-[400]`}>
                         Finalizar Compra
                     </button>
                 </div>

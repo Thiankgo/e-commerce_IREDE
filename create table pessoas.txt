@@ -162,9 +162,9 @@ create table users(
 create table category(
  id serial not null primary key,
  image varchar not null,
- category varchar not null unique
+ name varchar not null unique
 );
-
+ 
 create table products(
  id serial not null primary key,
  name varchar not null,
@@ -191,7 +191,25 @@ create table items(
 
 insert into sales (date) values (now);
 
+SELECT * FROM products as p JOIN category as c ON p.id_category = c.id;
 
+
+category
+{
+  "image": "https://images.tcdn.com.br/img/img_prod/752803/tenis_masculino_adidas_galaxy_6m_gw3848_running_academia_12203848_1_24aed5586879b080425573d97c464b99_20231213214557.jpg",
+  "name": "Tênis"
+}
+
+products
+{ name, description, price, quantity, image, category }
+{
+  "name": "Nique Air Surf",
+  "category": "Tênis",
+  "description": "Entre na onda do estilo e do conforto com os Tênis Nike Air Surf. Projetados para os amantes do surfe urbano e da moda esportiva, estes tênis combinam o icônico design da Nike com tecnologia de amortecimento Air, proporcionando suporte e maciez a cada passo. Com um visual moderno e versátil, a parte superior em material respirável mantém seus pés frescos, enquanto a sola durável oferece tração confiável em qualquer superfície. Seja na praia, na cidade ou nas ruas da sua rotina diária, os Tênis Nike Air Surf são a escolha perfeita para aqueles que buscam estilo e desempenho em um só produto. Pegue sua prancha e surfe com estilo!",
+  "price": 200,
+  "quantity": 99,
+  "image": "https://t-static.dafiti.com.br/8hN4QoH1WUISIiUSah-UBlJgiVQ=/fit-in/430x623/static.dafiti.com.br/p/nike-tênis-nike-air-versitile-branco%2fazul-5350-1674282-1-zoom.jpg"
+}
 
 --------------------------------
 
