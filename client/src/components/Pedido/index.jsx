@@ -2,7 +2,7 @@ export default function Pedido({ pedido }) {
 
     return (
         <>
-            <div className="flex flex-col md:flex-row w-full">
+            <div className="flex flex-col md:flex-row w-full justify-between">
                 <div className="p-2 w-[230px] flex">
                     <img src={pedido?.image} alt={pedido?.name} className="w-[80px] h-[70px] rounded-lg object-cover" />
                     <div className="p-2 w-full">
@@ -13,7 +13,7 @@ export default function Pedido({ pedido }) {
                 </div>
                 <div className="flex md:flex-col text-[14px] justify-between md:justify-center">
                     <p className="md:hidden">Status:</p>
-                    <p className="font-[600] text-orange-500 md:absolute md:right-[45px] text-wrap">Aguardando pagamento</p>
+                    <p className="font-[600] text-orange-500 text-wrap">Aguardando pagamento</p>
                 </div>
             </div>
         </>

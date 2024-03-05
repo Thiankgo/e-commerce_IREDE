@@ -3,19 +3,29 @@ import ProductImage from "../../assets/productimage.png"
 import { IoMdArrowDropdown } from "react-icons/io"
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../context/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function PedidosPage() {
+    const navigate = useNavigate();
     const { auth } = useContext(AuthContext)
     const [pedidos, setPedidos] = useState([])
     const [window, setWindow] = useState("Meus Pedidos")
 
     useEffect(() => {
-        fetch(`http://localhost:3000/items?email=${auth.email}&token=${auth.token}`) 
-            .then(response => response.json())
+        fetch(`http://localhost:3000/items?token=${auth.token}`)
+            .then(response => {
+                if (response.ok) return response.json();
+                return response.json().then(response => { throw { ...response } })
+            })
             .then(data => {
                 setPedidos(data)
             })
-            .catch(error => console.log('Erro ao buscar pedidos:', error))
+            .catch(error => { 
+                console.log('Erro ao buscar pedidos:', error) 
+                if (error.message === "TokenExpiredError"){
+                    navigate("/login")
+                }
+            })
     }, [auth])
 
     return (

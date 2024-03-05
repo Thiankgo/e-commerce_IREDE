@@ -64,7 +64,7 @@ export default function ProductsPage() {
                             <option value="" className=" h-[40px] inline-flex items-center font-[600] text-[16px] text-black white bg-white "> Todos os Produtos </option>
                             {
                                 categories?.map((c) => (
-                                    <option value={c.name} className=" h-[40px] inline-flex items-center font-[600] text-[16px]  text-black bg-white mx-auto"> {c.name} </option>
+                                    <option key={c.id} value={c.name} className=" h-[40px] inline-flex items-center font-[600] text-[16px]  text-black bg-white mx-auto"> {c.name} </option>
                                 ))
                             }
                         </select>

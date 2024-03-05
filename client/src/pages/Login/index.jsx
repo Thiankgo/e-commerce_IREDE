@@ -1,12 +1,18 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from "../../assets/logo.png"
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Login() {
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext)
+    const { auth, login } = useContext(AuthContext)
     const [formData, setFormData] = useState({ email: '', password: '' })
+
+    useEffect(() => {
+        if (auth.token){
+            navigate("/")
+        }
+    }, [])
 
     function handleLogin(e) {
         e.preventDefault();
@@ -21,20 +27,18 @@ export default function Login() {
             body: JSON.stringify({ email, password, avatar: 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg' })
         })
             .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    if (response.status === 401) throw { message: "Email ou Senha incorretos", status: response.status };
-                    else throw { message: "Erro ao fazer login", status: response.status };
-                }
+                if (response.ok) return response.json();
+                return response.json().then(response => { throw { ...response } })
             })
             .then(data => {
                 const { id, token, avatar, name } = data;
                 login(email, avatar, name, id, token)
+                console.log(token)
                 navigate(-1);
             })
             .catch(error => {
                 console.error('Erro ao fazer login:', error);
+                alert(error.message)
             });
     }
 

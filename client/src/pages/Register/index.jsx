@@ -1,12 +1,19 @@
-import { useState, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useContext, useEffect } from 'react'
+import { Link, json, useNavigate } from 'react-router-dom'
 import Logo from "../../assets/logo.png"
 import { AuthContext } from '../../context/AuthContext'
 
 export default function Register() {
     const navigate = useNavigate();
-    const { login } = useContext(AuthContext)
+    const { auth, login } = useContext(AuthContext)
     const [formData, setFormData] = useState({ email: '', password: '', name: '' })
+
+    useEffect(() => {
+        if (auth.token) {
+            navigate("/")
+        }
+    }, [])
+
 
     function handleRegister(e) {
         e.preventDefault();
@@ -21,12 +28,8 @@ export default function Register() {
             body: JSON.stringify({ email, password, name, avatar: 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg' })
         })
             .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    if(response.status === 400) throw {message:"Email existente", status: response.status};
-                    else throw {message:"Erro ao registrar usuário", status: response.status};
-                }
+                if (response.ok) return response.json();
+                return response.json().then(response => { throw { ...response } })
             })
             .then(data => {
                 const { id, token, avatar } = data;
