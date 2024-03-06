@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useSearchParams } from 'react-router-dom'
 import Products from "../../components/Products"
 import ProductImage from "../../assets/productimage.png"
 import { IoMdArrowDropdown } from "react-icons/io"
 
 
 export default function ProductsPage() {
+    const [searchParams] = useSearchParams();
     const [search, setSearch] = useState('')
     const [category, setCategory] = useState('')
     const [categories, setCategories] = useState([])
@@ -31,15 +32,15 @@ export default function ProductsPage() {
     }, [])
 
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search)
         const querySearch = searchParams.get('search')
+        console.log(querySearch)
         if (querySearch) {
             setSearch(querySearch)
         }
     }, [])
-
     useEffect(() => {
-        const searchParams = new URLSearchParams(location.search)
+
+        // const searchParams = new URLSearchParams(location.search)
         const queryCategory = searchParams.get('category')
         const categoryExists = categories.some(cat => cat.name === queryCategory)
         if (queryCategory && categoryExists) {

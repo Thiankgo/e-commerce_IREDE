@@ -33,7 +33,6 @@ export default function Login() {
             .then(data => {
                 const { id, token, avatar, name } = data;
                 login(email, avatar, name, id, token)
-                console.log(token)
                 navigate(-1);
             })
             .catch(error => {

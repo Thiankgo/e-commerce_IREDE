@@ -3,7 +3,7 @@ import Pedido from "../../components/Pedido"
 export default function Pedidos({pedidos}) {
     return (
         <>
-            <div className="flex flex-wrap gap-1 lg:gap-8 justify-center mx-auto md:mx-0">
+            <div className="flex flex-wrap gap-1 lg:gap-8 w-full justify-center mx-auto md:mx-0">
                 {
                     pedidos?.length > 0 ?
                         pedidos.map((p) => (

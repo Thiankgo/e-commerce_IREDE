@@ -14,7 +14,7 @@ app.use(express.json())
 const secret = "ecommerce_secret"
 
 const options = {
-    expiresIn: "5m"
+    expiresIn: "10m"
 }
 
 const iss = "ecommerce back"
@@ -217,7 +217,7 @@ app.get("/items", async (req, res) => {
 
 app.post("/items", async (req, res) => {
     const { email, token, sales } = req.body
-
+// const token = req.headers
     const client = await pool.connect()
     try {
         const payload = jwt.verify(token, secret)
@@ -267,11 +267,7 @@ app.post("/items", async (req, res) => {
         console.log(productValues)
 
         const quantityProductQuery = format(`
-            update products as p set
-                quantity = c.quantity::int
-            from (values %L) 
-            as c(id, quantity) 
-            where c.id = p.id::int`
+            update products as p set quantity = new.quantity::int from (values %L)  as new(id, quantity)  where p.id = new.id::int`
             , productValues)
 
 
