@@ -112,7 +112,7 @@ app.post("/register", async (req, res) => {
 
 app.get("/products", async (req, res) => {
     try {
-        const productsQuery = await pool.query("SELECT p.id, p.name, p.description, p.price, p.quantity, p.image, c.name AS category FROM products as p JOIN category as c ON p.id_category = c.id")
+        const productsQuery = await pool.query("SELECT p.id, p.name, p.description, p.price, p.quantity, p.image, c.name AS category FROM products as p JOIN category as c ON p.id_category = c.id order by p.name asc")
 
         const products = productsQuery.rows
 
@@ -190,8 +190,10 @@ app.get("/items", async (req, res) => {
                 category as c on p.id_category = c.id
             join 
                 sales as s on i.id_sale = s.id
-            where 
+                where 
                 u.id = $1
+                order by
+                     i.id desc
         `, [payload.sub])
 
         const sales = itemsQuery.rows.map(item => ({
@@ -290,7 +292,7 @@ app.post("/items", async (req, res) => {
 
 
 app.get("/category", async (req, res) => {
-    var data = await pool.query("select * from category")
+    var data = await pool.query("select * from category order by name asc")
     return res.json(data.rows)
 })
 

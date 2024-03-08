@@ -37,7 +37,8 @@ export default function ProductsPage() {
         if (querySearch) {
             setSearch(querySearch)
         }
-    }, [])
+    }, [searchParams.get('search')])
+
     useEffect(() => {
 
         // const searchParams = new URLSearchParams(location.search)
@@ -46,7 +47,7 @@ export default function ProductsPage() {
         if (queryCategory && categoryExists) {
             setCategory(queryCategory)
         }
-    }, [categories])
+    }, [categories,searchParams.get('category')])
 
     const handleCategoryChange = (c) => {
         if (c !== category) setCategory(c)

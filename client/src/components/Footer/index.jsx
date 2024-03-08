@@ -39,7 +39,6 @@ export default function Footer() {
                         <Link to="/produtos?category=Tênis">Tênis</Link>
                         <Link to="/produtos?category=Camiseta">Camiseta</Link>
                         <Link to="/produtos?category=Acessórios">Acessórios</Link>
-                        <Link to="/produtos?category=Esportivo">Esportivo</Link>
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className=" font-[600]">Localização</h4>

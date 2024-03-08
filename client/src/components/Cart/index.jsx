@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Cart() {
     const [validToken, setValidToken] = useState(false)
-    const { auth,logout } = useContext(AuthContext)
+    const { auth, logout } = useContext(AuthContext)
     const { cart, setCart } = useContext(CartContext);
     const { showCart, setShowCart } = useContext(CartDialogContext);
     const ref = useRef();
@@ -15,23 +15,25 @@ export default function Cart() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(`http://localhost:3000/auth?token=${auth.token}`)
-            .then(response => {
-                if (response.ok) return response.json();
-                return response.json().then(response => { throw { ...response } })
-            })
-            .then(data => {
-                setValidToken(true)
-            })
-            .catch(error => {
-                console.error('Erro ao fazer login:', error);
-                setValidToken(false)
-                logout()
-                if (error.message === "TokenExpiredError"){
-                    alert("Login expirou!")
-                    navigate("/login")
-                }
-            });
+        if (auth.token) {
+            fetch(`http://localhost:3000/auth?token=${auth.token}`)
+                .then(response => {
+                    if (response.ok) return response.json();
+                    return response.json().then(response => { throw { ...response } })
+                })
+                .then(data => {
+                    setValidToken(true)
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer login:', error);
+                    setValidToken(false)
+                    logout()
+                    if (error.message === "TokenExpiredError") {
+                        alert("Login expirou!")
+                        navigate("/login")
+                    }
+                });
+        }
     }, [auth.token])
 
     useEffect(() => {
@@ -74,9 +76,9 @@ export default function Cart() {
                             throw { message: "Error" };
                         }
                     })
-                    .catch(error =>  {
+                    .catch(error => {
                         console.error('Erro ao fazer pedido:', error);
-                        if (error.message === "TokenExpiredError"){
+                        if (error.message === "TokenExpiredError") {
                             setValidToken(false)
                             logout()
                             alert("Login expirou!")

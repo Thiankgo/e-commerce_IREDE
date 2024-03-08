@@ -4,7 +4,7 @@ export default function Pedido({ pedido }) {
         <>
             <div className="flex flex-col md:flex-row w-full justify-between">
                 <div className="p-2 w-[230px] flex">
-                    <img src={pedido?.image} alt={pedido?.name} className="w-[80px] h-[70px] rounded-lg object-cover" />
+                    <img src={pedido?.image} alt={pedido?.name} className="w-[80px] h-[80px] rounded-lg object-fill" />
                     <div className="p-2 w-full">
                         <h3 className="font-[600] text-[14px] black">#{pedido?.id} {pedido?.name}</h3>
                         <p className="text-stone-500 text-[10px] font-[600]">{pedido?.category} Qnt: {pedido?.quantity}</p>
