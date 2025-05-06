@@ -15,8 +15,7 @@ namespace MyApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private const string Secret = "ecommerce_secret_32_bytes_key!";
-
+        private const string Secret = "ecommerce_secret_super_segura_123456789!";
         private const string Iss = "ecommerce back";
         private const string Aud = "ecommerce front";
         private readonly IConfiguration _config;

@@ -12,7 +12,7 @@ export default function PedidosPage() {
     const [window, setWindow] = useState("Meus Pedidos")
 
     useEffect(() => {
-        fetch(`http://localhost:3000/items?token=${auth.token}`)
+        fetch(`http://localhost:3000/api/items?token=${auth.token}`)
             .then(response => {
                 if (response.ok) return response.json();
                 return response.json().then(response => { throw { ...response } })

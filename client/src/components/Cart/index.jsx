@@ -16,7 +16,7 @@ export default function Cart() {
 
     useEffect(() => {
         if (auth.token) {
-            fetch(`http://localhost:3000/auth?token=${auth.token}`)
+            fetch(`http://localhost:3000/api/auth?token=${auth.token}`)
                 .then(response => {
                     if (response.ok) return response.json();
                     return response.json().then(response => { throw { ...response } })
@@ -61,7 +61,7 @@ export default function Cart() {
                     quantity: item.quantity
                 }));
 
-                fetch('http://localhost:3000/items', {
+                fetch('http://localhost:3000/api/items', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

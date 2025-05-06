@@ -14,7 +14,7 @@ export default function ProductsPage() {
     const location = useLocation()
 
     useEffect(() => {
-        fetch('http://localhost:3000/category') 
+        fetch('http://localhost:3000/api/category') 
             .then(response => response.json())
             .then(data => {
                 setCategories(data);
@@ -23,7 +23,7 @@ export default function ProductsPage() {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:3000/products') 
+        fetch('http://localhost:3000/api/products') 
             .then(response => response.json())
             .then(data => {
                 setProducts(data);

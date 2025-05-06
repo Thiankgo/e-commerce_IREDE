@@ -12,7 +12,7 @@ export default function ProductDetails() {
     const { setShowCart } = useContext(CartDialogContext)
 
     useEffect(() => {
-        fetch(`http://localhost:3000/products/${id}`) 
+        fetch(`http://localhost:3000/api/products/${id}`) 
             .then(response => response.json())
             .then(data => {
                 setProduct(data);

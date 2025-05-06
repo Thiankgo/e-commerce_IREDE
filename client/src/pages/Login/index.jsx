@@ -19,7 +19,7 @@ export default function Login() {
 
         const { email, password } = formData;
 
-        fetch('http://localhost:3000/login', {
+        fetch('http://localhost:3000/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

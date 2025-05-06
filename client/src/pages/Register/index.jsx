@@ -20,7 +20,7 @@ export default function Register() {
 
         const { email, password, name } = formData;
 
-        fetch('http://localhost:3000/register', {
+        fetch('http://localhost:3000/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
