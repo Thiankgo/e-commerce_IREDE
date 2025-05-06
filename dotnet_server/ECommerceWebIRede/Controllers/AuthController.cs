@@ -3,12 +3,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using MyApi.Data;
-using MyApi.DTOs;
-using MyApi.Models;
+using ECommerceStore.Data;
+using ECommerceStore.DTOs;
+using ECommerceStore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyApi.Controllers
+namespace ECommerceStore.Controllers
 {
     [ApiController]
     [Route("api/auth")]
@@ -18,15 +18,12 @@ namespace MyApi.Controllers
         private const string Secret = "ecommerce_secret_super_segura_123456789!";
         private const string Iss = "ecommerce back";
         private const string Aud = "ecommerce front";
-        private readonly IConfiguration _config;
 
-        public AuthController(AppDbContext db, IConfiguration config)
+        public AuthController(AppDbContext db)
         {
             _db = db;
-            _config = config;
         }
 
-        // GET api/auth?token=...
         [HttpGet]
         public IActionResult ValidateToken([FromQuery] string token)
         {
@@ -44,12 +41,17 @@ namespace MyApi.Controllers
                     ValidIssuer = Iss,
                     ValidateAudience = true,
                     ValidAudience = Aud,
-                    ValidateLifetime = true
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 }, out _);
 
+                // Lê o claim "sub" com o usuário
                 var jwt = handler.ReadJwtToken(token);
-                var userId = int.Parse(jwt.Claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value);
+                var subClaim = jwt.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+                if (subClaim == null || !int.TryParse(subClaim, out var userId))
+                    return StatusCode(500, new { message = "Erro interno do servidor", status = 500 });
 
+                // Verifica se o usuário existe
                 if (!_db.Users.Any(u => u.Id == userId))
                     return StatusCode(500, new { message = "Erro interno do servidor", status = 500 });
 
@@ -57,6 +59,7 @@ namespace MyApi.Controllers
             }
             catch (SecurityTokenExpiredException ex)
             {
+                // Mesmo comportamento do Node: 500 + nome do erro
                 return StatusCode(500, new { message = ex.GetType().Name, status = 500 });
             }
             catch
@@ -69,51 +72,80 @@ namespace MyApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            if (string.IsNullOrEmpty(dto.Email)) return BadRequest(new { message = "Email vazio", status = 400 });
-            if (string.IsNullOrEmpty(dto.Password)) return BadRequest(new { message = "Senha vazia", status = 400 });
+            if (string.IsNullOrEmpty(dto.Email))
+                return BadRequest(new { message = "Email vazio", status = 400 });
+            if (string.IsNullOrEmpty(dto.Password))
+                return BadRequest(new { message = "Senha vazia", status = 400 });
 
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email && u.Password == dto.Password);
-            if (user == null) return Unauthorized(new { message = "E-mail ou senha incorretos", status = 401 });
+            var user = await _db.Users
+                .FirstOrDefaultAsync(u => u.Email == dto.Email && u.Password == dto.Password);
+
+            if (user == null)
+                return Unauthorized(new { message = "E-mail ou senha incorretos", status = 401 });
 
             var token = GenerateToken(user);
-            return Ok(new { user.Id, user.Name, user.Email, user.Avatar, token });
+            return Ok(new
+            {
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Avatar,
+                token
+            });
         }
 
         // POST api/auth/register
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            if (string.IsNullOrEmpty(dto.Name)) return BadRequest(new { message = "Nome vazio", status = 400 });
-            if (string.IsNullOrEmpty(dto.Email)) return BadRequest(new { message = "Email vazio", status = 400 });
-            if (dto.Password.Length < 5) return BadRequest(new { message = "Senha deve conter 5 caracteres", status = 400 });
+            if (string.IsNullOrEmpty(dto.Name))
+                return BadRequest(new { message = "Nome vazio", status = 400 });
+            if (string.IsNullOrEmpty(dto.Email))
+                return BadRequest(new { message = "Email vazio", status = 400 });
+            if (dto.Password.Length < 5)
+                return BadRequest(new { message = "Senha deve conter 5 caracteres", status = 400 });
 
-            if (_db.Users.Any(u => u.Email == dto.Email))
+            if (await _db.Users.AnyAsync(u => u.Email == dto.Email))
                 return BadRequest(new { message = "E-mail já está em uso", status = 400 });
 
-            var user = new User { Name = dto.Name, Email = dto.Email, Password = dto.Password, Avatar = dto.Avatar };
+            var user = new User
+            {
+                Name = dto.Name,
+                Email = dto.Email,
+                Password = dto.Password,
+                Avatar = dto.Avatar
+            };
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
 
             var token = GenerateToken(user);
-            return StatusCode(201, new { user.Id, user.Name, user.Email, user.Avatar, token });
+            return StatusCode(201, new
+            {
+                user.Id,
+                user.Name,
+                user.Email,
+                user.Avatar,
+                token
+            });
         }
 
         private string GenerateToken(User user)
         {
-            var key = Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
+            var key = Encoding.UTF8.GetBytes(Secret);
             var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
-            var claims = new[] {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Iss, _config["Jwt:Issuer"]!),
-                new Claim(JwtRegisteredClaimNames.Aud, _config["Jwt:Audience"]!)
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Iss, Iss),
+                new Claim(JwtRegisteredClaimNames.Aud, Aud)
             };
 
             var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
+                issuer: Iss,
+                audience: Aud,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: creds
             );
 

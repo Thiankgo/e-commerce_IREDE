@@ -1,4 +1,4 @@
-namespace MyApi.DTOs {
+namespace ECommerceStore.DTOs {
     public class PostItemsDto {
         public required string Email { get; set; }
         public required string Token { get; set; }

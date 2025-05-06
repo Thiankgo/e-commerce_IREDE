@@ -1,8 +1,13 @@
-namespace MyApi.DTOs
+using System.Text.Json.Serialization;
+
+namespace ECommerceStore.DTOs
 {
     public class SaleDto
     {
-        public required int ProductId;
-        public required int Quantity;
+        [JsonPropertyName("product")]
+        public required int Product { get; set; }
+
+        [JsonPropertyName("quantity")]
+        public required int Quantity { get; set; }
     }
 }

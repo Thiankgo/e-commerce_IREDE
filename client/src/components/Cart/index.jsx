@@ -61,6 +61,10 @@ export default function Cart() {
                     quantity: item.quantity
                 }));
 
+                console.log(email);
+                console.log(token);
+                console.log(sales);
+
                 fetch('http://localhost:3000/api/items', {
                     method: 'POST',
                     headers: {

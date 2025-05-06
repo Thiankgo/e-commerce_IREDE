@@ -1,4 +1,4 @@
-namespace MyApi.Models
+namespace ECommerceStore.Models
 {
     public class User
     {

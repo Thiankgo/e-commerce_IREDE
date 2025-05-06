@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MyApi.Data;
-using MyApi.Models;
+using ECommerceStore.Data;
+using ECommerceStore.Models;
 
-namespace MyApi.Controllers
+namespace ECommerceStore.Controllers
 {
     [ApiController]
     [Route("api/category")]

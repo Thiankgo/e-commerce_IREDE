@@ -1,4 +1,4 @@
-namespace MyApi.DTOs {
+namespace ECommerceStore.DTOs {
     public class RegisterDto {
         public required string Name { get; set; }
         public required string Email { get; set; }
