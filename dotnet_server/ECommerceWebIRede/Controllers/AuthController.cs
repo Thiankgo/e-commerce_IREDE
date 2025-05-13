@@ -15,18 +15,22 @@ namespace ECommerceStore.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private const string Secret = "ecommerce_secret_super_segura_123456789!";
-        private const string Iss = "ecommerce back";
-        private const string Aud = "ecommerce front";
+        private readonly IConfiguration _config;
 
-        public AuthController(AppDbContext db)
+        public AuthController(AppDbContext db, IConfiguration config)
         {
             _db = db;
+            _config = config;
         }
 
         [HttpGet]
         public IActionResult ValidateToken([FromQuery] string token)
         {
+            var jwtSettings = _config.GetSection("Jwt");
+            var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+            var issuer = _config["Jwt:Issuer"]!;
+            var audience = _config["Jwt:Audience"]!;
+
             if (string.IsNullOrEmpty(token))
                 return BadRequest(new { message = "Token vazio", status = 400 });
 
@@ -36,11 +40,11 @@ namespace ECommerceStore.Controllers
                 handler.ValidateToken(token, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
-                    ValidIssuer = Iss,
+                    ValidIssuer = issuer,
                     ValidateAudience = true,
-                    ValidAudience = Aud,
+                    ValidAudience = audience,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }, out _);
@@ -131,19 +135,22 @@ namespace ECommerceStore.Controllers
 
         private string GenerateToken(User user)
         {
-            var key = Encoding.UTF8.GetBytes(Secret);
+            var jwtSettings = _config.GetSection("Jwt");
+            var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+            var issuer = jwtSettings["Issuer"]!;
+            var audience = jwtSettings["Audience"]!;
             var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(JwtRegisteredClaimNames.Iss, Iss),
-                new Claim(JwtRegisteredClaimNames.Aud, Aud)
+                new Claim(JwtRegisteredClaimNames.Iss, issuer),
+                new Claim(JwtRegisteredClaimNames.Aud, audience)
             };
 
             var token = new JwtSecurityToken(
-                issuer: Iss,
-                audience: Aud,
+                issuer: issuer,
+                audience: audience,
                 claims: claims,
                 expires: DateTime.UtcNow.AddDays(1),
                 signingCredentials: creds

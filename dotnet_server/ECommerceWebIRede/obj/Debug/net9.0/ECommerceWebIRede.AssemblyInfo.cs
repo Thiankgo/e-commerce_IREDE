@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ECommerceWebIRede")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab31c043fa9aafb9d3f560d6dca2db974ec6fdf3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee7528f29c036b3c5a4bffbef2a09c52fce8c6a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("ECommerceWebIRede")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ECommerceWebIRede")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

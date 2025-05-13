@@ -5,7 +5,6 @@ using ECommerceStore.Data;
 using ECommerceStore.DTOs;
 using ECommerceStore.Models;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
 
 namespace ECommerceStore.Controllers
@@ -16,7 +15,6 @@ namespace ECommerceStore.Controllers
     {
         private readonly AppDbContext _db;
         private readonly IConfiguration _config;
-        private const string Secret = "ecommerce_secret_super_segura_123456789";
         public ItemsController(AppDbContext db, IConfiguration config)
         {
             _db = db;
